@@ -156,6 +156,14 @@
 			name = view;
 			sourceTree = "<group>";
 		};
+		2AF3590122334E55A165B838 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,14 +246,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		2AF3590122334E55A165B838 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

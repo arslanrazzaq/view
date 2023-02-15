@@ -102,10 +102,6 @@ const AddAccount = ({ navigation }) => {
                         paddingHorizontal: SIZES.radius,
                         width: '100%'
                     }}
-                    inputStyle={{
-                        marginVertical: SIZES.base,
-                        ...FONTS.body3
-                    }}
                     value={accountName}
                     onChange={(value) => {
                         setAccountName(value);
