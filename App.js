@@ -1,15 +1,5 @@
 // import React from 'react';
 // import {
-//   SafeAreaView,
-//   ScrollView,
-//   StatusBar,
-//   StyleSheet,
-//   Text,
-//   useColorScheme,
-//   View,
-// } from 'react-native';
-
-// import {
 //   Colors,
 //   DebugInstructions,
 //   Header,
@@ -109,19 +99,17 @@
 
 import React, { useContext, useEffect } from "react";
 import SplashScreen from 'react-native-splash-screen';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 import { Navigator } from './screens';
-
-// import { createStore, applyMiddleware } from "redux";
-// import { Provider } from "react-redux";
-// import thunk from "redux-thunk";
-// import rootReducer from "./stores/rootReducer";
-// import { AuthProvider } from "./Context/authContext";
-
-// const store = createStore(
-//   rootReducer,
-//   applyMiddleware(thunk)
-// );
 
 const App = () => {
 
@@ -130,12 +118,7 @@ const App = () => {
   }, []);
 
   return (
-    // <AuthProvider>
-    //   <Provider store={store}>
-        <Navigator />
-        // <RemotePushController />
-    //   </Provider>
-    // </AuthProvider> 
+    <Navigator />
   )
 }
 

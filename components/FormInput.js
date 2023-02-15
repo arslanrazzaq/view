@@ -23,7 +23,8 @@ const FormInput = ({
     maxLength,
     inputContainerStyle,
     onFocus,
-    editable
+    editable,
+    textAlign="left"
 }) => {
     return (
         <View style={{...containerStyle}}>
@@ -67,6 +68,7 @@ const FormInput = ({
                         flex: 1,
                         ...inputStyle
                     }}
+                    textAlign={textAlign}
                     editable={editable ? editable === 'false' ? false : true : true}
                     placeholder={placeholder}
                     placeholderTextColor={COLORS.gray}

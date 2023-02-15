@@ -4,7 +4,7 @@
 // import Otp from "./Authentication/Otp"
 // import ForgotPassword from "./Authentication/ForgotPassword"
 // import MainLayout from "./MainLayout"
-// import Home from "./Home/Home"
+import Home from "./Home/Home"
 // import Search from "./Search/Search";
 // import Notification from "./Notification/Notification";
 // import FilterModal from "./Home/FilterModal";
@@ -34,6 +34,7 @@ import ContactUs from "./ContactUs/ContactUs";
 // import SelectNationality from "./Profile/SelectNationality";
 // import ProfileTab from "./ProfileTab/ProfileTab";
 // import PostComReply from "./Post/PostComReply";
+import AddAccount from "./AddAccount/AddAccount";
 
 export {
     Navigator,
@@ -46,6 +47,7 @@ export {
     // PostComReply,
     // ProfileTab,
     ContactUs,
+    AddAccount,
     // DelAccount,
     // DailyContest,
     // DailyContestStep1,
@@ -68,7 +70,7 @@ export {
     // Otp,
     // ForgotPassword,
     // MainLayout,
-    // Home,
+    Home,
     // Search,
     // Notification,
     // FilterModal

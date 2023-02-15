@@ -13,7 +13,9 @@ import {
     // Profile,
     // Paypal,
     // Legal,
-    ContactUs,
+    ContactUs, 
+    Home,
+    AddAccount
     // PostReport,
     // Post,
     // PostComReply,
@@ -46,17 +48,17 @@ const Navigator = () => {
                     headerShown: false,
                     gestureEnabled: false
                 }}
-                initialRouteName={'ContactUs'}
+                initialRouteName={'Home'}
             >
-                {/* <Stack.Screen
+                <Stack.Screen
                     name="Home"
-                    component={MainLayout}
+                    component={Home}
                 />
                 <Stack.Screen 
-                    name="DailyContest"
-                    component={DailyContest}
+                    name="AddAccount"
+                    component={AddAccount}
                 />
-                <Stack.Screen 
+                {/* <Stack.Screen 
                     name="DailyContestChoosePhotos"
                     component={DailyContestChoosePhotos}
                 />
