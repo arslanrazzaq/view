@@ -13,7 +13,7 @@ import { FONTS, SIZES, COLORS, icons } from '../../constants';
 import { TextButton, TextIconButton } from '../../components';
 import axios from 'axios';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { LoginManager, AccessToken, Profile } from 'react-native-fbsdk-next';
+// import { LoginManager, AccessToken, Profile } from 'react-native-fbsdk-next';
 import { AuthContext } from '../../Context/authContext';
 import { BASE_URL } from '../../config';
 import CheckBox from '@react-native-community/checkbox';
@@ -36,10 +36,9 @@ const SignInInit = ({ navigation, route }) => {
 
     useEffect(() => { 
         const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'lh-s-token' });
-            console.log(credentials);
+            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
             if (credentials && credentials.username && credentials.password) {
-                navigation.goBack();
+                navigation.push('Home');
             }
         });
         return unsubscribe;
@@ -47,7 +46,7 @@ const SignInInit = ({ navigation, route }) => {
 
     useEffect(() => {
         GoogleSignin.configure({
-            webClientId: Platform.OS == 'ios' ? '554527523524-a119nagiv1p8eo60a475r0aoc7s538b9.apps.googleusercontent.com' : '554527523524-0huu264fm468n0046mu08ei4ntkvatpd.apps.googleusercontent.com'
+            webClientId: Platform.OS == 'ios' ? '662268974133-g820ucosmhbei9l40cg3ub9oh7nah5em.apps.googleusercontent.com' : '662268974133-n7jit2sgfk446mpgp2rai0t8p8iar5r9.apps.googleusercontent.com'
         });
     }, []);
 
@@ -69,14 +68,10 @@ const SignInInit = ({ navigation, route }) => {
                 });
                 setIsLoading(false);
                 login(response.data.token, response.data.user);
-                if (response.data.isNewUser == true) {
-                    navigation.navigate('SelectGender', { user_id: response.data.user.id, description: '', username: response.data.user.username, profile_pic: response.data.user.profile_pic });
+                if (route.params && route.params.navigateTo) {
+                    navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
                 } else {
-                    if (route.params && route.params.navigateTo) {
-                        navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-                    } else {
-                        navigation.navigate('Home');
-                    }
+                    navigation.push('Home');
                 }
             } catch (error) {
                 console.log('error comes:', error);
@@ -112,62 +107,58 @@ const SignInInit = ({ navigation, route }) => {
 
     const facebookLogin = async () => {
         setIsLoading(true);
-        LoginManager.logInWithPermissions(['public_profile', 'email'])
-            .then(async result => {
-                if (result.isCancelled) {
-                    setIsLoading(false);
-                    setCommonError('Facebook Login cancelled');
-                } else {
-                    try {
-                        let userProfile = await Profile.getCurrentProfile();
-                        if (userProfile) {
-                            let userToken = await AccessToken.getCurrentAccessToken();
-                            try {
-                                const response = await axios.post(`${BASE_URL}/user/social/login`, {
-                                    email: userProfile.userID,
-                                    firstName: userProfile.firstName,
-                                    lastName: userProfile.lastName,
-                                    profileImage: userProfile.imageURL,
-                                    username: userProfile.userID,
-                                    token: userToken.accessToken.toString(),
-                                    type: 'facebook',
-                                    role: 'user'
-                                });
-                                setIsLoading(false);
-                                login(response.data.token, response.data.user);
-                                if (response.data.isNewUser == true) {
-                                    navigation.navigate('SelectGender', { user_id: response.data.user.id, description: '', username: response.data.user.username, profile_pic: response.data.user.profile_pic });
-                                } else {
-                                    if (route.params && route.params.navigateTo) {
-                                        navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-                                    } else {
-                                        navigation.navigate('Home');
-                                    }
-                                }
-                            } catch (error) {
-                                if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-                                    setCommonError(error.response.data.msg);
-                                    setIsLoading(false);
-                                } else {
-                                    setCommonError('Unknown Error, Try again later');
-                                    setIsLoading(false);
-                                }
-                            }
-                        } else {
-                            setCommonError('Login failed unable to get user profile');
-                            setIsLoading(false);
-                        }
-                    } catch (error) {
-                        setIsLoading(false);
-                        console.log("Login fail with error: " + error);
-                        setCommonError('Facebook Login failed with error, Try again later');
-                    }
-                }
-            }, error => {
-                setIsLoading(false);
-                console.log("Login fail with error: " + error);
-                setCommonError('Facebook Login failed with error, Try again later');
-            })
+        // LoginManager.logInWithPermissions(['public_profile', 'email'])
+        //     .then(async result => {
+        //         if (result.isCancelled) {
+        //             setIsLoading(false);
+        //             setCommonError('Facebook Login cancelled');
+        //         } else {
+        //             try {
+        //                 let userProfile = await Profile.getCurrentProfile();
+        //                 if (userProfile) {
+        //                     let userToken = await AccessToken.getCurrentAccessToken();
+        //                     try {
+        //                         const response = await axios.post(`${BASE_URL}/user/social/login`, {
+        //                             email: userProfile.userID,
+        //                             firstName: userProfile.firstName,
+        //                             lastName: userProfile.lastName,
+        //                             profileImage: userProfile.imageURL,
+        //                             username: userProfile.userID,
+        //                             token: userToken.accessToken.toString(),
+        //                             type: 'facebook',
+        //                             role: 'user'
+        //                         });
+        //                         setIsLoading(false);
+        //                         login(response.data.token, response.data.user);
+        //                         if (route.params && route.params.navigateTo) {
+        //                             navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
+        //                         } else {
+        //                             navigation.navigate('Home');
+        //                         }
+        //                     } catch (error) {
+        //                         if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+        //                             setCommonError(error.response.data.msg);
+        //                             setIsLoading(false);
+        //                         } else {
+        //                             setCommonError('Unknown Error, Try again later');
+        //                             setIsLoading(false);
+        //                         }
+        //                     }
+        //                 } else {
+        //                     setCommonError('Login failed unable to get user profile');
+        //                     setIsLoading(false);
+        //                 }
+        //             } catch (error) {
+        //                 setIsLoading(false);
+        //                 console.log("Login fail with error: " + error);
+        //                 setCommonError('Facebook Login failed with error, Try again later');
+        //             }
+        //         }
+        //     }, error => {
+        //         setIsLoading(false);
+        //         console.log("Login fail with error: " + error);
+        //         setCommonError('Facebook Login failed with error, Try again later');
+        //     })
     }
 
     const onAppleButtonPress = async () => {
@@ -197,14 +188,10 @@ const SignInInit = ({ navigation, route }) => {
                 });
                 setIsLoading(false);
                 login(response.data.token, response.data.user);
-                if (response.data.isNewUser == true) {
-                    navigation.navigate('SelectGender', { user_id: response.data.user.id, description: '', username: response.data.user.username, profile_pic: response.data.user.profile_pic });
+                if (route.params && route.params.navigateTo) {
+                    navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
                 } else {
-                    if (route.params && route.params.navigateTo) {
-                        navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-                    } else {
-                        navigation.navigate('Home');
-                    }
+                    navigation.navigate('Home');
                 }
             } catch (error) {
                 if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
@@ -421,7 +408,6 @@ const SignInInit = ({ navigation, route }) => {
                     </Text> : null
                 }
             </View>
-           
         </AuthLayout>
     )
 }

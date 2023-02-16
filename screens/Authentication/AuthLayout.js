@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -13,7 +13,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Header, IconButton } from "../../components";
 
 
-const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation, isLoading }) => {
+const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation, isLoading, isHeader }) => {
 
     const renderHeader = () => {
         return (
@@ -58,7 +58,7 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
             }}
         >
             <SafeAreaView style={{ backgroundColor: COLORS.white }}>
-                {renderHeader()}
+                {isHeader ? renderHeader() : null}
             </SafeAreaView>
             {   isLoading ? 
                     <View 
@@ -93,44 +93,48 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
                     keyboardShouldPersistTaps={"handled"}
                     enableResetScrollToCoords={false}
                 >
+                    
                     <View
                         style={{
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            marginTop: SIZES.radius
                         }}
                     >
                         <Image
                             source={images.logo_02}
                             resizeMode='contain'
                             style={{
-                                height: 100,
-                                width: 200
+                                height: 125,
+                                width: 125,
+                                borderRadius: SIZES.radius
                             }}
                         />
                     </View>
                     <View
+                    style={{
+                        marginTop: SIZES.padding,
+                        ...titleContainerStyle
+                    }}
+                >
+                    <Text
                         style={{
-                            marginTop: SIZES.padding,
-                            ...titleContainerStyle
+                            textAlign: 'center',
+                            ...FONTS.h2,
+                            color: COLORS.black
                         }}
                     >
-                        <Text
-                            style={{
-                                textAlign: 'center',
-                                ...FONTS.h2
-                            }}
-                        >
-                            {title}
-                        </Text>
-                        <Text
-                            style={{
-                                textAlign: 'center',
-                                color: COLORS.darkGray,
-                                marginTop: SIZES.base,
-                                ...FONTS.body3
-                            }}
-                        >
-                            {subTitle}
-                        </Text>
+                        {title}
+                    </Text>
+                    <Text
+                        style={{
+                            textAlign: 'center',
+                            color: COLORS.darkGray,
+                            marginTop: SIZES.base,
+                            ...FONTS.body3
+                        }}
+                    >
+                        {subTitle}
+                    </Text>
                     </View>
                     {
                         children

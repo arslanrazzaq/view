@@ -13,7 +13,7 @@ import { FONTS, SIZES, COLORS, icons } from '../../constants';
 import { FormInput, TextButton, TextIconButton } from '../../components';
 import { utils } from '../../utils';
 import axios from 'axios';
-import { LoginManager, AccessToken, Profile } from 'react-native-fbsdk-next';
+// import { LoginManager, AccessToken, Profile } from 'react-native-fbsdk-next';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { AuthContext } from '../../Context/authContext';
 import { BASE_URL } from '../../config';
@@ -32,27 +32,18 @@ const SignUp = ({ navigation }) => {
     const [passwordError, setPasswordError] = useState("");
     const [commonError, setCommonError] = useState("");
 
-
-    const [isFACode, setIsFACode] = useState(true);
-    const [FACode, setFACode] = useState("");
-    const [FACodeError, setFACodeError] = useState("");
-
     const [saveMe, setSaveMe] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     
     const { userInfo, login } = useContext(AuthContext);
 
     const isEnabledSignUp = () => {
-        if (isFACode) {
-            return isSelected && email != "" && password != "" && emailError == "" && username !== "" && username.trim() !== "" && usernameError == "" && passwordError == ""
-        } else {
-            return FACode != "" && isSelected && email != "" && password != "" && emailError == "" && username !== "" && username.trim() !== "" && usernameError == "" && passwordError == ""
-        }
+        return isSelected && email != "" && password != "" && emailError == "" && username !== "" && username.trim() !== "" && usernameError == "" && passwordError == ""
     }
 
     useEffect(() => { 
         const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'lh-s-token' });
+            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
             if (credentials && credentials.username && credentials.password) {
                 navigation.goBack();
             }
@@ -62,7 +53,7 @@ const SignUp = ({ navigation }) => {
 
     useEffect(() => { 
         GoogleSignin.configure({
-            webClientId: Platform.OS == 'ios' ? '554527523524-a119nagiv1p8eo60a475r0aoc7s538b9.apps.googleusercontent.com' : '554527523524-0huu264fm468n0046mu08ei4ntkvatpd.apps.googleusercontent.com'
+            webClientId: Platform.OS == 'ios' ? '662268974133-g820ucosmhbei9l40cg3ub9oh7nah5em.apps.googleusercontent.com' : '662268974133-n7jit2sgfk446mpgp2rai0t8p8iar5r9.apps.googleusercontent.com'
         });
     },[])
 
@@ -77,36 +68,9 @@ const SignUp = ({ navigation }) => {
                 role: 'user'
             });
             setIsLoading(false);
-            setIsFACode(false);
-            Alert.alert('Verify Email', 'Verification code sent to your email.');
-        } catch (error) {
-            if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-                setCommonError(error.response.data.msg);
-                setIsLoading(false);
-                setIsFACode(true);
-            } else {
-                setCommonError('Unknown Error, Try again later');
-                setIsLoading(false);
-                setIsFACode(true);
-            }
-        }
-    }
-
-    const registerUserVerify = async () => {
-        try {
-            setIsLoading(true);
-            const response = await axios.post(`${BASE_URL}/user/create`, {
-                email: email,
-                password: password,
-                username: username,
-                type: 'email',
-                role: 'user',
-                FACode: FACode
-            });
-            setIsLoading(false);
-            Alert.alert('Verify Code', 'Verification done Successfully.');
             navigation.navigate('SignIn');
         } catch (error) {
+            console.log(error.response.data);
             if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
                 setCommonError(error.response.data.msg);
                 setIsLoading(false);
@@ -135,11 +99,7 @@ const SignUp = ({ navigation }) => {
                 });
                 setIsLoading(false);
                 login(response.data.token, response.data.user);
-                if (response.data.isNewUser == true) {
-                    navigation.navigate('SelectGender', { user_id: response.data.user.id, description: '', username: response.data.user.username, profile_pic: response.data.user.profile_pic });
-                } else {
-                    navigation.navigate('Home');
-                }
+                navigation.navigate('Home');
             } catch (error) {
                 if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
                     setCommonError(error.response.data.msg);
@@ -172,58 +132,54 @@ const SignUp = ({ navigation }) => {
 
     const facebookLogin = async () => {
         setIsLoading(true);
-        LoginManager.logInWithPermissions(['public_profile', 'email'])
-            .then(async result => {
-                if (result.isCancelled) {
-                    setIsLoading(false);
-                    setCommonError('Facebook Login cancelled');
-                } else {
-                    try {
-                        let userProfile = await Profile.getCurrentProfile();
-                        if (userProfile) {
-                            let userToken = await AccessToken.getCurrentAccessToken();
-                            try {
-                                const response = await axios.post(`${BASE_URL}/user/social/login`, {
-                                    email: userProfile.userID,
-                                    firstName: userProfile.firstName,
-                                    lastName: userProfile.lastName,
-                                    profileImage: userProfile.imageURL,
-                                    username: userProfile.userID,
-                                    token: userToken.accessToken.toString(),
-                                    type: 'facebook',
-                                    role: 'user'
-                                });
-                                setIsLoading(false);
-                                login(response.data.token, response.data.user);
-                                if (response.data.isNewUser == true) {
-                                    navigation.navigate('SelectGender', { user_id: response.data.user.id, description: '', username: response.data.user.username, profile_pic: response.data.user.profile_pic });
-                                } else {
-                                    navigation.navigate('Home');
-                                }
-                            } catch (error) {
-                                if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-                                    setCommonError(error.response.data.msg);
-                                    setIsLoading(false);
-                                } else {
-                                    setCommonError('Unknown Error, Try again later');
-                                    setIsLoading(false);
-                                }
-                            }
-                        } else {
-                            setCommonError('Login failed unable to get user profile');
-                            setIsLoading(false);
-                        }
-                    } catch (error) {
-                        setIsLoading(false);
-                        console.log("Login fail with error: " + error);
-                        setCommonError('Facebook Login failed with error, Try again later');
-                    }
-                }
-            }, error => {
-                setIsLoading(false);
-                console.log("Login fail with error: " + error);
-                setCommonError('Facebook Login failed with error, Try again later');
-            })
+        // LoginManager.logInWithPermissions(['public_profile', 'email'])
+        //     .then(async result => {
+        //         if (result.isCancelled) {
+        //             setIsLoading(false);
+        //             setCommonError('Facebook Login cancelled');
+        //         } else {
+        //             try {
+        //                 let userProfile = await Profile.getCurrentProfile();
+        //                 if (userProfile) {
+        //                     let userToken = await AccessToken.getCurrentAccessToken();
+        //                     try {
+        //                         const response = await axios.post(`${BASE_URL}/user/social/login`, {
+        //                             email: userProfile.userID,
+        //                             firstName: userProfile.firstName,
+        //                             lastName: userProfile.lastName,
+        //                             profileImage: userProfile.imageURL,
+        //                             username: userProfile.userID,
+        //                             token: userToken.accessToken.toString(),
+        //                             type: 'facebook',
+        //                             role: 'user'
+        //                         });
+        //                         setIsLoading(false);
+        //                         login(response.data.token, response.data.user);
+        //                         navigation.navigate('Home');
+        //                     } catch (error) {
+        //                         if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+        //                             setCommonError(error.response.data.msg);
+        //                             setIsLoading(false);
+        //                         } else {
+        //                             setCommonError('Unknown Error, Try again later');
+        //                             setIsLoading(false);
+        //                         }
+        //                     }
+        //                 } else {
+        //                     setCommonError('Login failed unable to get user profile');
+        //                     setIsLoading(false);
+        //                 }
+        //             } catch (error) {
+        //                 setIsLoading(false);
+        //                 console.log("Login fail with error: " + error);
+        //                 setCommonError('Facebook Login failed with error, Try again later');
+        //             }
+        //         }
+        //     }, error => {
+        //         setIsLoading(false);
+        //         console.log("Login fail with error: " + error);
+        //         setCommonError('Facebook Login failed with error, Try again later');
+        //     })
     }
 
     return (
@@ -235,6 +191,7 @@ const SignUp = ({ navigation }) => {
             }}
             navigation={navigation}
             isLoading={isLoading}
+            isHeader={true}
         >
             <View
                 style={{
@@ -253,7 +210,6 @@ const SignUp = ({ navigation }) => {
 
                     }}
                     value={email}
-                    editable={`${isFACode}`}
                     errorMsg={emailError}
                     appendComponent={
                         <View
@@ -280,7 +236,6 @@ const SignUp = ({ navigation }) => {
                     }}
                     maxLength={40}
                     autoCompleteType="email"
-                    editable={`${isFACode}`}
                     onChange={(value) => {
                         // utils.validateEmail(value, setEmailError)
                         setUsername(value.replace(/\s/g, ''))
@@ -310,7 +265,6 @@ const SignUp = ({ navigation }) => {
                     label="Password"
                     secureTextEntry={!showPass}
                     autoCompleteType="password" 
-                    editable={`${isFACode}`}
                     containerStyle={{
                         marginTop: SIZES.radius
                     }}
@@ -340,39 +294,6 @@ const SignUp = ({ navigation }) => {
                         </TouchableOpacity>
                     }
                 />
-                { !isFACode ?
-                    <FormInput 
-                        containerStyle={{
-                            marginTop: SIZES.radius
-                        }}
-                        label="Verification Code"
-                        keyboardType='number-pad'
-                        autoCompleteType="off"
-                        onChange={(value) => {
-                            setFACode(value)
-                        }}
-                        value={FACode}
-                        errorMsg={FACodeError}
-                        appendComponent={
-                            <View
-                                style={{
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <Image 
-                                    source={FACode == "" || (FACode != "" && FACodeError == "") ? icons.correct : icons.cancel}
-                                    style={{
-                                        height: 20,
-                                        width: 20,
-                                        tintColor: FACode == "" ? COLORS.gray : (FACode != "" && FACodeError == "") ? COLORS.green: COLORS.red,
-
-                                    }}
-                                />
-                            </View>
-                        }
-                    /> 
-                    : null 
-                }
                 <TextButton 
                     label="Sign Up"
                     disabled={isEnabledSignUp() ? false : true }
@@ -383,7 +304,7 @@ const SignUp = ({ navigation }) => {
                         borderRadius: SIZES.radius,
                         backgroundColor: isEnabledSignUp() ? COLORS.primary : COLORS.transparentPrimary 
                     }}
-                    onPress={() => { if (isFACode) { registerUser(); } else { registerUserVerify() } }}
+                    onPress={() => { registerUser(); }}
                 />
 
                 <View

@@ -99,6 +99,7 @@
 
 import React, { useContext, useEffect } from "react";
 import SplashScreen from 'react-native-splash-screen';
+import { AuthProvider } from "./Context/authContext";
 import {
   SafeAreaView,
   ScrollView,
@@ -118,7 +119,9 @@ const App = () => {
   }, []);
 
   return (
-    <Navigator />
+    <AuthProvider>
+      <Navigator />
+    </AuthProvider>
   )
 }
 

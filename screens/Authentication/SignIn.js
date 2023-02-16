@@ -32,7 +32,7 @@ const SignIn = ({ navigation, route }) => {
 
     useEffect(() => { 
         const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'lh-s-token' });
+            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
             if (credentials && credentials.username && credentials.password) {
                 navigation.goBack();
             }
@@ -51,14 +51,10 @@ const SignIn = ({ navigation, route }) => {
             });
             setIsLoading(false);
             login(response.data.token, response.data.user);
-            if (!response.data.user.gender || !response.data.user.dob ||!response.data.user.nationality) {
-                navigation.navigate('SelectGender', { user_id: response.data.user.id, description: '', username: response.data.user.username, profile_pic: response.data.user.profile_pic });
+            if (route.params && route.params.navigateTo) {
+                navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
             } else {
-                if (route.params && route.params.navigateTo) {
-                    navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-                } else {
-                    navigation.navigate('Home');
-                }
+                navigation.navigate('Home');
             }
         } catch (error) {
             if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
@@ -77,6 +73,7 @@ const SignIn = ({ navigation, route }) => {
             subTitle={""}
             navigation={navigation}
             isLoading={isLoading}
+            isHeader={true}
         >
             <View
                 style={{

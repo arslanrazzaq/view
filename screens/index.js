@@ -1,8 +1,8 @@
-// import AuthLayout from "./Authentication/AuthLayout"
-// import SignIn from "./Authentication/SignIn"
-// import SignUp from "./Authentication/SignUp"
+import AuthLayout from "./Authentication/AuthLayout"
+import SignIn from "./Authentication/SignIn"
+import SignUp from "./Authentication/SignUp"
 // import Otp from "./Authentication/Otp"
-// import ForgotPassword from "./Authentication/ForgotPassword"
+import ForgotPassword from "./Authentication/ForgotPassword"
 // import MainLayout from "./MainLayout"
 import Home from "./Home/Home"
 // import Search from "./Search/Search";
@@ -18,11 +18,11 @@ import Navigator from "../navigation/Navigator";
 import ContactUs from "./ContactUs/ContactUs";
 // import PostReport from "./Report/PostReport";
 // import Post from "./Post/Post";
-// import SignInInit from "./Authentication/SignInInit";
+import SignInInit from "./Authentication/SignInInit";
 // import EditProfile from "./Profile/EditProfile";
 // import DeleteAccount from "./DeleteAccount/DeleteAccount";
 // import DeleteAccountConfirmation from "./DeleteAccount/DeleteAccountConfirmation";
-// import ChangePassword from "./Authentication/ChangePassword";
+import ChangePassword from "./Authentication/ChangePassword";
 // import DelAccount from "./DeleteAccount/DelAccount";
 // import DailyContestInit from "./DailyContest/DailyContestInit";
 // import DailyContestStep1 from "./DailyContest/DailyContestStep1";
@@ -38,8 +38,8 @@ import AddAccount from "./AddAccount/AddAccount";
 
 export {
     Navigator,
-    // AuthLayout,
-    // SignIn,
+    AuthLayout,
+    SignIn,
     // Paypal,
     // Legal,
     // PostReport,
@@ -54,21 +54,21 @@ export {
     // DailyContestChoosePhotos,
     // DailyContestStep2,
     // DailyContestStep3,
-    // SignInInit,
+    SignInInit,
     // SelectGender,
     // SelectDOB,
     // SelectNationality,
     // EditProfile,
     // DeleteAccount,
     // DeleteAccountConfirmation,
-    // ChangePassword,
+    ChangePassword,
     // DailyContestInit,
     // Faq,
     // Winners,
     // Profile,
-    // SignUp,
+    SignUp,
     // Otp,
-    // ForgotPassword,
+    ForgotPassword,
     // MainLayout,
     Home,
     // Search,

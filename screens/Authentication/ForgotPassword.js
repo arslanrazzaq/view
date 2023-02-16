@@ -27,7 +27,7 @@ const ForgotPassword = ({ navigation }) => {
 
     useEffect(() => { 
         const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'lh-s-token' });
+            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
             if (credentials && credentials.username && credentials.password) {
                 navigation.goBack();
             }
@@ -94,6 +94,7 @@ const ForgotPassword = ({ navigation }) => {
             }}
             navigation={navigation}
             isLoading={isLoading}
+            isHeader={true}
         >
             <View
                 style={{

@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
-// import { AuthContext } from "../Context/authContext";
 
 import {
-    // SignIn,
-    // SignUp,
-    // ForgotPassword,
+    SignIn,
+    SignUp,
+    ForgotPassword,
     // Otp,
     // DelAccount,
     // Faq,
@@ -15,19 +14,19 @@ import {
     // Legal,
     ContactUs, 
     Home,
-    AddAccount
+    AddAccount,
     // PostReport,
     // Post,
     // PostComReply,
     // Search,
-    // SignInInit,
+    SignInInit,
     // SelectGender,
     // SelectDOB,
     // SelectNationality,
     // EditProfile,
     // DeleteAccount,
     // DeleteAccountConfirmation,
-    // ChangePassword,
+    ChangePassword,
     // DailyContest,
     // DailyContestStep1,
     // DailyContestStep2,
@@ -48,8 +47,9 @@ const Navigator = () => {
                     headerShown: false,
                     gestureEnabled: false
                 }}
-                initialRouteName={'Home'}
+                initialRouteName={'SignInInit'}
             >
+               
                 <Stack.Screen
                     name="Home"
                     component={Home}
@@ -58,6 +58,32 @@ const Navigator = () => {
                     name="AddAccount"
                     component={AddAccount}
                 />
+                <Stack.Screen
+                    name="ContactUs"
+                    component={ContactUs}
+                />
+        
+                <Stack.Screen
+                    name="SignInInit"
+                    component={SignInInit}
+                /> 
+                <Stack.Screen
+                    name="SignIn"
+                    component={SignIn}
+                />
+                <Stack.Screen
+                    name="SignUp"
+                    component={SignUp}
+                />
+                <Stack.Screen
+                    name="ForgotPassword"
+                    component={ForgotPassword}
+                />
+    
+                {/* <Stack.Screen
+                    name="ChangePassword"
+                    component={ChangePassword}
+                /> */}
                 {/* <Stack.Screen 
                     name="DailyContestChoosePhotos"
                     component={DailyContestChoosePhotos}
@@ -77,12 +103,8 @@ const Navigator = () => {
                 <Stack.Screen 
                     name="DailyContestInit"
                     component={DailyContestInit}
-                /> */}
+                />  
                 <Stack.Screen
-                    name="ContactUs"
-                    component={ContactUs}
-                />
-                {/* <Stack.Screen
                     name="Paypal"
                     component={Paypal}
                 />
@@ -105,11 +127,7 @@ const Navigator = () => {
                 <Stack.Screen
                     name="Search"
                     component={Search}
-                />
-                <Stack.Screen
-                    name="ChangePassword"
-                    component={ChangePassword}
-                />
+                /> 
                 <Stack.Screen
                     name="Faq"
                     component={Faq}
@@ -146,22 +164,6 @@ const Navigator = () => {
                     name="EditProfile"
                     component={EditProfile}
                 />
-                <Stack.Screen
-                    name="SignInInit"
-                    component={SignInInit}
-                /> 
-                <Stack.Screen
-                    name="SignIn"
-                    component={SignIn}
-                />
-                <Stack.Screen
-                    name="SignUp"
-                    component={SignUp}
-                />
-                <Stack.Screen
-                    name="ForgotPassword"
-                    component={ForgotPassword}
-                />        
                 <Stack.Screen
                     name="Otp"
                     component={Otp}
