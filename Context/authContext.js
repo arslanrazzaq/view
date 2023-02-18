@@ -15,11 +15,12 @@ export const AuthProvider = ({ children }) => {
         await Keychain.setGenericPassword(token, JSON.stringify(user), { service: 'view-s-token' });
     };
 
-    const logout = async () => {
+    const logout = async (navigation) => {
         // if (Platform.OS == 'ios') {
         //     await Keychain.setGenericPassword('', '');
         // } else {
             await Keychain.resetGenericPassword({ service: 'view-s-token' });
+            navigation.push('SignInInit');
         //}
         setUserInfo({});
     };

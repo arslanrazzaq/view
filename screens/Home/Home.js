@@ -23,6 +23,7 @@ import { BASE_URL } from '../../config';
 // import FilterModal from './FilterModal';
 import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
+import { AuthContext } from '../../Context/authContext';
 
 let selectedUser = null;
 let selectedPostToGo = null;
@@ -56,82 +57,27 @@ const Home = ({ navigation }) => {
     const flashListRef = useRef(null);
     // const [isStatusBarHidden, setIsStatusBarHidden] = useState(false);
 
+    const { userInfo, logout } = useContext(AuthContext);
+
+
     useEffect(() => {
-    //    getPosts(currentPage, sortFilter, isFilterApplied);
+       getNftsUser(currentPage, sortFilter, isFilterApplied);
     }, []);
 
-    const getPosts = async (current, filter, isFilterApply) => {
+    const getNftsUser = async (current, filter, isFilterApply) => {
         setIsLoading(true);
         setMenuList([]);
         try {
-            let bodyObj = {};
-            if (filter === 'New' || filter === 'All Time') {
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: filter
-                }
-            } else if (filter === 'Week') {
-                let currentd = moment();
-                let next = moment(currentd).subtract(7, 'd');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: 'Past Week',
-                    next: next,
-                    current: currentd
-                }
-            } else if (filter === 'Month') {
-                let currentd = moment();
-                let next = moment(currentd).subtract(30, 'd');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: 'Past Month',
-                    next: next,
-                    current: currentd
-                }
-            } else if (filter === 'Today') {
-                let currentd = moment();
-                let next = moment(currentd).subtract(1, 'd');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: filter,
-                    next: next,
-                    current: currentd
-                }
-            } else if (filter === 'Yesterday') {
-                let currentd = moment().subtract(1, 'days');
-                let next = moment(currentd).subtract(1, 'days');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: filter,
-                    next: next,
-                    current: currentd
-                }
-            }
-            if (isFilterApply) {
-                bodyObj.nationality = filterApplied.nationality;
-                bodyObj.gender = filterApplied.gender;
-                let val1 = moment().subtract(filterApplied.ageValues[0], 'years').endOf('year');
-                let val2 = moment().subtract(filterApplied.ageValues[1], 'years').startOf('year');
-                bodyObj.age = [val1, val2];
-                bodyObj.isFilterApply = true;
-            } else {
-                bodyObj.isFilterApply = false;
-            }
-            const response = await axios.post(`${BASE_URL}/post/list`, bodyObj);
+            const response = await axios.get(`${BASE_URL}/nfts/user/list/${userInfo?.user?.id}`);
             let newRes = response.data.data.filter((value, index, self) => index === self.findIndex((t) => (t.id === value.id)));
             setIsLoading(false);
             setMenuList(newRes);
             flashListRef.current?.scrollToIndex(0);
-            if (newRes.length < pageSize) {
+            // if (newRes.length < pageSize) {
                 setCount(newRes.length);                
-            } else {
-                setCount(response.data.count);
-            }
+            // } else {
+            //     setCount(response.data.count);
+            // }
             if (newRes.length <= 0) {
                 firstRun = false;
                 setFirstVisit(true);
@@ -273,7 +219,7 @@ const Home = ({ navigation }) => {
                             height: 20,
                             tintColor: COLORS.black,
                         }}
-                        onPress={() => navigation.push('Home')}
+                        onPress={() => logout(navigation)}
                     />
                 }
                 rightComponent={
@@ -336,7 +282,7 @@ const Home = ({ navigation }) => {
                 initialScrollIndex={0}
                 onEndReached={() => {
                     if (count > 0 && count > menuList.length && !isLoading) {
-                        getExtraPosts(pageSize, currentPage + 1, sortFilter, isFilterApplied);
+                        //getExtraPosts(pageSize, currentPage + 1, sortFilter, isFilterApplied);
                     }
                 }}
                 disableAutoLayout={true}
@@ -355,38 +301,79 @@ const Home = ({ navigation }) => {
                 renderItem={({ item, index }) => {
                     return (
                         !isLoading ?
-                                <View>
-                                    <Text>{`${index}`}</Text>
-                                    {/* <PostCard
-                                        key={item.id}
-                                        containerStyle={{
+                            <TouchableWithoutFeedback
+                                onPress={() => navigation.push('Collections', { user_account: item.username })}
+                            >
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        paddingVertical: SIZES.radius,
+                                        paddingHorizontal: SIZES.base,
+                                        borderBottomColor: COLORS.gray2,
+                                        borderBottomWidth: 1
+                                    }}
+                                >
+                                    <View 
+                                        style={{
+                                            borderWidth: 1,
+                                            borderColor: COLORS.gray2,
+                                            borderRadius: SIZES.radius,
+                                            overflow: 'hidden',
+                                        }}
+                                    >
+                                        <FastImage 
+                                            source={{ priority: FastImage.priority.high, uri: item?.user?.profile_pic ? post?.user?.profile_pic.startsWith('https://') ? post?.user?.profile_pic : `https://${post?.user?.profile_pic}` : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" }}
+                                            style={{
+                                                height: 60,
+                                                width: 60
+                                            }}
+                                            resizeMode={FastImage.resizeMode.contain}
+                                        />
+                                    </View>
+                                    <View 
+                                        style={{
+                                            flex: 1,
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            paddingHorizontal: SIZES.base
+                                        }}
+                                    >
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                flexWrap: 'wrap',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <Text
+                                                style={{...FONTS.h3, fontSize: 18, width: '100%', color: COLORS.black }}
+                                            >
+                                                {item.username}
+                                            </Text>
+                                            <Text
+                                                style={{...FONTS.h5, width: '100%', color: COLORS.gray2 }}
+                                            >
+                                                {item.type.toUpperCase()}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <View
+                                        style={{
+                                            width: 40,
                                             alignItems: 'center',
-                                            marginHorizontal: SIZES.base,
-                                            marginBottom: SIZES.radius
                                         }}
-                                        imageStyle={{
-                                            height: 495,
-                                            width: Dimensions.get('window').width - (SIZES.base * 2),
-                                        }}
-                                        userImageStyle={{
-                                            height: 40,
-                                            width: 40
-                                        }}
-                                        post={item}
-                                        is_voted={userInfo && userInfo.user && userInfo.user.id && item.post_votes.some(x => x.user_id == userInfo?.user?.id) ? true : false}
-                                        onPress={() => navigation.push("Profile", { user_id: item.user_id })}
-                                        onPressVote={() => handleVotePressed(item.id)}
-                                        onSharePress={() => handleSharePress(item)}
-                                        onReportPress={() => handleReportPress(item.id, item.user.username)}
-                                        onImagePress={() => handleImagePress(item.id)}
-                                        onTitlePress={() => handleImagePress(item.id)}
-                                        childern={null}
-                                        numberOfLines={3}
-                                        titleHome={true}
-                                    /> */}
+                                    >
+                                        <Icon 
+                                            name={'right'} 
+                                            size={30} 
+                                            color={COLORS.gray2}
+                                        />
+                                    </View>
                                 </View>
-                            : 
-                                null
+                            </TouchableWithoutFeedback>
+                        : 
+                            null
                     )
                 }}
                 ListFooterComponent={
@@ -415,12 +402,12 @@ const Home = ({ navigation }) => {
                                         color: COLORS.white,
                                         ...FONTS.h1
                                     }}
-                                    onPress={() => getPosts(currentPage, sortFilter, isFilterApplied)}
+                                    onPress={() => getNftsUser(currentPage, sortFilter, isFilterApplied)}
                                 />
                             : 
                                 null
                         }
-                        {count == menuList.length ? <Text style={{  ...FONTS.body4, color: COLORS.black }}>No more posts at the moment</Text> : null}
+                        {/* {count == menuList.length ? <Text style={{  ...FONTS.body4, color: COLORS.black }}>No more users at the moment</Text> : null} */}
                         <View style={{ height: 200 }} />
                     </View>
                 }

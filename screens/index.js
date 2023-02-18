@@ -35,6 +35,8 @@ import ChangePassword from "./Authentication/ChangePassword";
 // import ProfileTab from "./ProfileTab/ProfileTab";
 // import PostComReply from "./Post/PostComReply";
 import AddAccount from "./AddAccount/AddAccount";
+import Collections from "./Collections/Collections";
+import Assets from "./Assets/Assets";
 
 export {
     Navigator,
@@ -48,6 +50,8 @@ export {
     // ProfileTab,
     ContactUs,
     AddAccount,
+    Collections,
+    Assets,
     // DelAccount,
     // DailyContest,
     // DailyContestStep1,

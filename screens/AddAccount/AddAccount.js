@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     View,
     Text,
@@ -9,11 +9,18 @@ import {
 } from 'react-native';
 import { Header, IconButton, FormInput, TextButton } from '../../components';
 import { FONTS, SIZES, COLORS, icons, images } from '../../constants';
+import axios from 'axios';
+import { BASE_URL } from '../../config';
+import { AuthContext } from '../../Context/authContext';
 
 
 const AddAccount = ({ navigation }) => {
 
     const [accountName, setAccountName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [commonError, setCommonError] = useState("");
+
+    const { userInfo } = useContext(AuthContext);
 
     const renderHeader = () => {
         return (
@@ -28,7 +35,7 @@ const AddAccount = ({ navigation }) => {
                     <IconButton
                         icon={icons.cross}
                         containerStyle={{
-                            width: 50,
+                            width: 40,
                             height: 40,
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -47,13 +54,38 @@ const AddAccount = ({ navigation }) => {
                 rightComponent={
                     <IconButton 
                         containerStyle={{
-                            width: 50,
+                            width: 40,
                             height: 40
                         }}
                     />
                 }
             />
         )
+    }
+
+    const isEnabledSignIn = () => {
+        return accountName != ""
+    }
+
+    const handleAccountAdd = async () => {
+        try {
+            setIsLoading(true);
+            const response = await axios.post(`${BASE_URL}/nfts/user/create`, {
+                user_id: userInfo?.user?.id,
+                username: accountName,
+                type: 'proton'
+            });
+            setIsLoading(false);
+            navigation.push('Home');
+        } catch (error) {
+            if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+                setCommonError(error.response.data.msg);
+                setIsLoading(false);
+            } else {
+                setCommonError('Unknown Error, Try again later');
+                setIsLoading(false);
+            }
+        }
     }
 
     return (
@@ -110,17 +142,29 @@ const AddAccount = ({ navigation }) => {
                 />
                 <TextButton
                     label="Add Account"
+                    disabled={isEnabledSignIn() ? false : true }
                     buttonContainerStyle={{
                         height: 55,
                         alignItems: 'center',
                         marginTop: SIZES.padding,
                         borderRadius: SIZES.radius,
-                        backgroundColor: COLORS.primary,
+                        backgroundColor: isEnabledSignIn() ? COLORS.primary : COLORS.transparentPrimary,
                         paddingHorizontal: SIZES.padding,
                         alignSelf: 'center'
                     }}
-                    onPress={() => console.log('clicked')}
+                    onPress={() => handleAccountAdd()}
                 />
+                {   commonError ? <Text 
+                        style={{
+                            color: COLORS.red,
+                            ...FONTS.body4,
+                            marginTop: SIZES.base,
+                            textAlign: 'center'
+                        }}
+                    >
+                        {commonError}
+                    </Text> : null
+                }
             </View>
         </View>
     )

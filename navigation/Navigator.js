@@ -15,6 +15,8 @@ import {
     ContactUs, 
     Home,
     AddAccount,
+    Collections,
+    Assets,
     // PostReport,
     // Post,
     // PostComReply,
@@ -49,7 +51,6 @@ const Navigator = () => {
                 }}
                 initialRouteName={'SignInInit'}
             >
-               
                 <Stack.Screen
                     name="Home"
                     component={Home}
@@ -57,6 +58,14 @@ const Navigator = () => {
                 <Stack.Screen 
                     name="AddAccount"
                     component={AddAccount}
+                />
+                <Stack.Screen
+                    name="Collections"
+                    component={Collections}
+                />
+                <Stack.Screen
+                    name="Assets"
+                    component={Assets}
                 />
                 <Stack.Screen
                     name="ContactUs"
