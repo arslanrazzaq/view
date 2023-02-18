@@ -180,7 +180,7 @@ const Assets = ({ navigation, route }) => {
                         }}
                     >
                         <TouchableWithoutFeedback
-                            onPress={() => console.log(item.immutable_data.image)}
+                            onPress={() => navigation.push('Asset', { data: item, collection_name: route.params.collection_name, user_account: route.params.user_account })}
                         >
                             <View
                                 style={{

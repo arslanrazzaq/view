@@ -17,6 +17,7 @@ import {
     AddAccount,
     Collections,
     Assets,
+    Asset,
     // PostReport,
     // Post,
     // PostComReply,
@@ -66,6 +67,10 @@ const Navigator = () => {
                 <Stack.Screen
                     name="Assets"
                     component={Assets}
+                />
+                <Stack.Screen 
+                    name="Asset"
+                    component={Asset}
                 />
                 <Stack.Screen
                     name="ContactUs"
