@@ -36,7 +36,7 @@ const FormInput = ({
             >
                 <Text 
                     style={{
-                        color: COLORS.gray, 
+                        color: COLORS.white, 
                         ...FONTS.body4
                     }}
                 >

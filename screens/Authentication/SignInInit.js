@@ -332,7 +332,7 @@ const SignInInit = ({ navigation, route }) => {
                 >
                     <Text
                         style={{
-                            color: COLORS.darkGray,
+                            color: COLORS.white,
                             ...FONTS.body3
                         }}
                     >
@@ -345,7 +345,7 @@ const SignInInit = ({ navigation, route }) => {
                             backgroundColor: null
                         }}
                         labelStyle={{
-                            color: COLORS.primary,
+                            color: COLORS.white,
                             ...FONTS.h3
                         }}
                         onPress={() => navigation.navigate("SignUp")}
@@ -373,7 +373,7 @@ const SignInInit = ({ navigation, route }) => {
                     >
                         <Text 
                             style={{
-                                color: COLORS.darkGray,
+                                color: COLORS.white,
                                 ...FONTS.body4,
                                 marginTop: SIZES.base,
                                 marginLeft: SIZES.base
@@ -386,7 +386,7 @@ const SignInInit = ({ navigation, route }) => {
                         >
                             <Text 
                                 style={{
-                                    color: COLORS.darkGray,
+                                    color: COLORS.white,
                                     ...FONTS.body4,
                                     marginLeft: SIZES.base
                                 }}

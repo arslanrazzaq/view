@@ -37,7 +37,8 @@ import ChangePassword from "./Authentication/ChangePassword";
 import AddAccount from "./AddAccount/AddAccount";
 import Collections from "./Collections/Collections";
 import Assets from "./Assets/Assets";
-import Asset from "./Assets/Asset"
+import Asset from "./Assets/Asset";
+import VideoPlayer from "./Video/VideoPlayer";
 
 export {
     Navigator,
@@ -54,6 +55,7 @@ export {
     Collections,
     Assets,
     Asset,
+    VideoPlayer,
     // DelAccount,
     // DailyContest,
     // DailyContestStep1,

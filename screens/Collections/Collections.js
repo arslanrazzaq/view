@@ -5,9 +5,10 @@ import {
     ActivityIndicator,
     TouchableWithoutFeedback,
     SafeAreaView,
+    ImageBackground,
     FlatList
 } from 'react-native';
-import { FONTS, COLORS, SIZES, icons } from '../../constants';
+import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
 import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
@@ -57,14 +58,13 @@ const Collections = ({ navigation, route }) => {
             <Header
                 title={`${route?.params?.user_account} Collections`}
                 titleStyle={{
-                    color: COLORS.black
+                    color: COLORS.white,
                 }}
                 containerStyle={{
                     height: 50,
                     marginTop: 0,
                     alignItems: 'center',
                     paddingHorizontal: SIZES.base,
-                    backgroundColor: COLORS.white
                 }}
                 leftComponent={
                     <IconButton
@@ -76,12 +76,12 @@ const Collections = ({ navigation, route }) => {
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.black
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.black,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -99,10 +99,10 @@ const Collections = ({ navigation, route }) => {
     }
 
     return (
-        <View
+        <ImageBackground 
+            source={images.background} 
             style={{
                 flex: 1,
-                backgroundColor: COLORS.white
             }}
         >
             <SafeAreaView>
@@ -136,7 +136,11 @@ const Collections = ({ navigation, route }) => {
                             marginLeft: index % 2 != 0 ? SIZES.base/2 : SIZES.base,
                             flex: 0.5,
                             overflow: 'hidden',
-                            backgroundColor: COLORS.lightGray2
+                            borderColor: COLORS.white,
+                            paddingHorizontal: SIZES.base,
+                            paddingTop: SIZES.base,
+                            borderWidth: 1
+                            // backgroundColor: COLORS.lightGray2
                         }}
                     >
                         <TouchableWithoutFeedback
@@ -145,6 +149,7 @@ const Collections = ({ navigation, route }) => {
                             <View
                                 style={{
                                     alignItems: 'center',
+                                    overflow: 'hidden',
                                     borderRadius: SIZES.radius,
                                 }}
                             >
@@ -155,7 +160,7 @@ const Collections = ({ navigation, route }) => {
                                     }}
                                     resizeMode={FastImage.resizeMode.contain}
                                     style={{
-                                        height: 250,
+                                        height: 200,
                                         width: "100%",
                                         aspectRatio: 1,
                                         borderRadius: SIZES.radius
@@ -176,7 +181,7 @@ const Collections = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginHorizontal: SIZES.base,
-                                    color: COLORS.black,
+                                    color: COLORS.white,
                                     ...FONTS.h3,
                                     flex: 1
                                 }}
@@ -194,11 +199,11 @@ const Collections = ({ navigation, route }) => {
                                 <Icon 
                                     name={'check'} 
                                     size={20} 
-                                    color={COLORS.black}
+                                    color={COLORS.white}
                                 />
                                 <Text
                                     style={{
-                                        color: COLORS.black,
+                                        color: COLORS.white,
                                         ...FONTS.h3,
                                     }}
                                 >
@@ -217,7 +222,7 @@ const Collections = ({ navigation, route }) => {
                     </View>
                 }
             />
-        </View>
+        </ImageBackground>
     )
 }
 

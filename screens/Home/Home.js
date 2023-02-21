@@ -10,9 +10,11 @@ import {
     TouchableWithoutFeedback,
     FlatList,
     SafeAreaView,
-    StatusBar
+    StatusBar,
+    ImageBackground,
+    Image
 } from 'react-native';
-import { FONTS, COLORS, SIZES, icons } from '../../constants';
+import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
 import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
@@ -191,16 +193,15 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title="The View App"
+                title={<Image source={images.view_logo} resizeMode={'contain'} style={{ height: 30, width: 30 }} />}
                 titleStyle={{
-                    color: COLORS.black
+                    color: COLORS.white,
                 }}
                 containerStyle={{
                     height: 50,
                     marginTop: 0,
                     alignItems: 'center',
                     paddingHorizontal: SIZES.base,
-                    backgroundColor: COLORS.white
                 }}
                 leftComponent={
                     <IconButton
@@ -212,12 +213,12 @@ const Home = ({ navigation }) => {
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.black
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 20,
                             height: 20,
-                            tintColor: COLORS.black,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => logout(navigation)}
                     />
@@ -232,12 +233,12 @@ const Home = ({ navigation }) => {
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.black
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 20,
                             height: 20,
-                            tintColor: COLORS.black,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.push('AddAccount')}
                     />
@@ -247,11 +248,9 @@ const Home = ({ navigation }) => {
     }
 
     return (
-        <View
-            style={{
-                flex: 1,
-                backgroundColor: COLORS.white
-            }}
+        <ImageBackground 
+            source={images.background} 
+            style={{ flex : 1 }}
         >
             {/* {   showFilterModal ? 
                     <FilterModal 
@@ -269,6 +268,7 @@ const Home = ({ navigation }) => {
                 : 
                 null 
             } */}
+           
             <SafeAreaView>
                 {renderHeader()}
             </SafeAreaView>
@@ -347,7 +347,7 @@ const Home = ({ navigation }) => {
                                             }}
                                         >
                                             <Text
-                                                style={{...FONTS.h3, fontSize: 18, width: '100%', color: COLORS.black }}
+                                                style={{...FONTS.h3, fontSize: 18, width: '100%', color: COLORS.white }}
                                             >
                                                 {item.username}
                                             </Text>
@@ -407,12 +407,11 @@ const Home = ({ navigation }) => {
                             : 
                                 null
                         }
-                        {/* {count == menuList.length ? <Text style={{  ...FONTS.body4, color: COLORS.black }}>No more users at the moment</Text> : null} */}
                         <View style={{ height: 200 }} />
                     </View>
                 }
-            />
-        </View>
+            /> 
+            </ImageBackground>
     )
 }
 

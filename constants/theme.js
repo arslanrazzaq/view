@@ -23,6 +23,7 @@ export const COLORS = {
     white2: "#FBFBFB",
     white: '#FFFFFF',
     black: "#000000",
+    gold: '#F2E456',
 
     transparent: 'transparent',
     transparentBlack1: "rgba(0, 0, 0, 0.1)",

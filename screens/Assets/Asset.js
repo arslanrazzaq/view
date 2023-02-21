@@ -7,9 +7,10 @@ import {
     SafeAreaView,
     Dimensions,
     TouchableOpacity,
+    ImageBackground,
     FlatList
 } from 'react-native';
-import { FONTS, COLORS, SIZES, icons } from '../../constants';
+import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
 import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/Feather';
@@ -20,7 +21,11 @@ import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
 import ImageView from "react-native-image-viewing";
+import Sound from 'react-native-sound';
 
+Sound.setCategory('Playback');
+
+let audio; 
 
 const Asset = ({ navigation, route }) => {
 
@@ -33,54 +38,83 @@ const Asset = ({ navigation, route }) => {
     const [pageSize, setPageSize] = useState(10);
     const [count, setCount] = useState(true);
 
-    const [images, setImages] = useState([]);
+    const [imagesAsset, setImagesAsset] = useState([]);
     const [imagesIndex, setImagesIndex] = useState(0);
     const [visible, setIsVisible] = useState(false);
+    const [playing, setPlaying] = useState(false);
+    const [loadedAudio, setLoadedAudio] = useState(false);
 
     const flashListRef = useRef(null);
   
     const { userInfo } = useContext(AuthContext);
 
     useEffect(() => {
-       getNftsUserCollections();
+    //    getNftsUserCollections();
     }, []);
-   
-    const getNftsUserCollections = async () => {
-        setIsLoading(true);
-        setCollectionList([]);
-        try {
-            const response = await axios.get(`${BASE_URL_API}//atomicassets/v1/templates?collection_name=${route?.params?.collection_name}&page=1&limit=${pageSize}&order=desc&sort=created`);
-            setIsLoading(false);
-            setCollectionList(response.data.data);
-            flashListRef.current?.scrollToIndex(0);
-            if (response.data.data.length < pageSize) {
-                setCount(false);                
-            }
-        } catch (error) {
-            console.log('called err: ', error);
-            if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-                setCommonError(error.response.data.msg);
-                setIsLoading(false);
-            } else {
-                setCommonError('Unknown Error, Try again later');
-                setIsLoading(false);
-            }
+
+    useEffect(() => { 
+        if (route.params.data.immutable_data.audio) {
+            let url = route.params.data.immutable_data.audio.startsWith("https://") ? `${route.params.data.immutable_data.audio}` : `https://solidcircle.mypinata.cloud/ipfs/${route.params.data.immutable_data.audio}`;
+            audio = new Sound(
+                url,
+                null,
+                error => {
+                    if (error) {
+                        console.log('failed to load the sound', error);
+                        return;
+                    }
+                    // if loaded successfully
+                    setLoadedAudio(true);
+                    console.log(
+                        'duration in seconds: ' +
+                        audio.getDuration() +
+                        'number of channels: ' +
+                        audio.getNumberOfChannels(),
+                    );
+                },
+            );
+            audio.setVolume(1);
+            return () => {
+            audio.release();
+            };
         }
-    }
+      }, []);
+   
+    // const getNftsUserCollections = async () => {
+    //     setIsLoading(true);
+    //     setCollectionList([]);
+    //     try {
+    //         const response = await axios.get(`${BASE_URL_API}//atomicassets/v1/templates?collection_name=${route?.params?.collection_name}&page=1&limit=${pageSize}&order=desc&sort=created`);
+    //         setIsLoading(false);
+    //         setCollectionList(response.data.data);
+    //         flashListRef.current?.scrollToIndex(0);
+    //         if (response.data.data.length < pageSize) {
+    //             setCount(false);                
+    //         }
+    //     } catch (error) {
+    //         console.log('called err: ', error);
+    //         if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+    //             setCommonError(error.response.data.msg);
+    //             setIsLoading(false);
+    //         } else {
+    //             setCommonError('Unknown Error, Try again later');
+    //             setIsLoading(false);
+    //         }
+    //     }
+    // }
 
     function renderHeader() {
         return (
             <Header
                 title={`${route?.params?.collection_name} Assets`}
                 titleStyle={{
-                    color: COLORS.black
+                    color: COLORS.white
                 }}
                 containerStyle={{
                     height: 50,
                     marginTop: 0,
                     alignItems: 'center',
                     paddingHorizontal: SIZES.base,
-                    backgroundColor: COLORS.white
                 }}
                 leftComponent={
                     <IconButton
@@ -92,12 +126,12 @@ const Asset = ({ navigation, route }) => {
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.black
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.black,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -114,6 +148,26 @@ const Asset = ({ navigation, route }) => {
         )
     }
 
+    const playPause = () => {
+        if (loadedAudio) {
+            if (audio.isPlaying()) {
+                audio.pause();
+                setPlaying(false);
+                } else {
+                setPlaying(true);
+                audio.play(success => {
+                    if (success) {
+                    setPlaying(false);
+                    console.log('successfully finished playing');
+                    } else {
+                    setPlaying(false);
+                    console.log('playback failed due to audio decoding errors');
+                    }
+                });
+            }
+        }
+      };
+
     const handleImagePress = (val) => {
     
         let imgs = [];
@@ -121,17 +175,21 @@ const Asset = ({ navigation, route }) => {
             uri: val.startsWith("https://") ? `${val}` : `https://solidcircle.mypinata.cloud/ipfs/${val}`,
         });
 
-        setImages(imgs);
+        setImagesAsset(imgs);
         setIsVisible(true);
         // setImagesIndex(ind);
     }
 
+    const playVideo = (val) => {
+        navigation.push('VideoPlayer', { url: val.startsWith("https://") ? `${val}` : `https://solidcircle.mypinata.cloud/ipfs/${val}`})
+    }
+
 
     return (
-        <View
+        <ImageBackground 
+            source={images.background}
             style={{
-                flex: 1,
-                backgroundColor: COLORS.white
+                flex: 1
             }}
         >
             <SafeAreaView>
@@ -139,7 +197,7 @@ const Asset = ({ navigation, route }) => {
             </SafeAreaView>
 
             <ImageView
-                images={images}
+                images={imagesAsset}
                 imageIndex={imagesIndex}
                 visible={visible}
                 onRequestClose={() => setIsVisible(false)}
@@ -175,46 +233,60 @@ const Asset = ({ navigation, route }) => {
                                 borderRadius: SIZES.radius
                             }}
                         />
-                        <TouchableOpacity
-                            style={{
-                                position: 'absolute',
-                                bottom: SIZES.radius,
-                                flexDirection: 'row',
-                                left: SIZES.radius,
-                                zIndex: 3, // works on ios
-                                elevation: 3,
-                                paddingHorizontal: SIZES.radius,
-                                paddingVertical: SIZES.base,
-                                borderRadius: SIZES.radius,
-                                backgroundColor: '#e8e8e8' 
-                            }}
-                        >
-                            <IconF 
-                                name={'video'} 
-                                size={32} 
-                                color={COLORS.black}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                position: 'absolute',
-                                bottom: SIZES.radius,
-                                flexDirection: 'row',
-                                right: SIZES.radius,
-                                zIndex: 3, // works on ios
-                                elevation: 3,
-                                paddingHorizontal: SIZES.radius,
-                                paddingVertical: SIZES.base,
-                                borderRadius: SIZES.radius,
-                                backgroundColor: '#e8e8e8' 
-                            }}
-                        >
-                            <IconF 
-                                name={'music'} 
-                                size={32} 
-                                color={COLORS.black}
-                            />
-                        </TouchableOpacity>
+                        {
+                            route.params.data.immutable_data.video ?
+                                <TouchableOpacity
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: SIZES.radius,
+                                        flexDirection: 'row',
+                                        left: SIZES.radius,
+                                        zIndex: 3, // works on ios
+                                        elevation: 3,
+                                        paddingHorizontal: SIZES.radius,
+                                        paddingVertical: SIZES.base,
+                                        borderRadius: SIZES.radius,
+                                        backgroundColor: '#e8e8e8' 
+                                    }}
+                                    onPress={() => playVideo(route.params.data.immutable_data.video)}
+                                >
+                                    <IconF 
+                                        name={'youtube'} 
+                                        size={32} 
+                                        color={COLORS.black}
+                                    />
+                                </TouchableOpacity>
+                            : 
+                                null
+                        }
+                        {   
+                            route.params.data.immutable_data.audio ?
+                                <TouchableOpacity
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: SIZES.radius,
+                                        flexDirection: 'row',
+                                        right: SIZES.radius,
+                                        zIndex: 3, // works on ios
+                                        elevation: 3,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        width: 60,
+                                        height: 60,
+                                        borderRadius: 50,
+                                        backgroundColor: '#e8e8e8'
+                                    }}
+                                    onPress={() => playPause()}
+                                >
+                                    <IconF 
+                                        name={'music'} 
+                                        size={32} 
+                                        color={COLORS.black}
+                                    />
+                                </TouchableOpacity>
+                            : 
+                                null
+                        }
                     </View>
                 </TouchableWithoutFeedback>
             </View>
@@ -225,35 +297,42 @@ const Asset = ({ navigation, route }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     padding: SIZES.base,
-                    backgroundColor: COLORS.lightGray2
                 }}
             >   
                 <TouchableOpacity
                     style={{
                         paddingHorizontal: SIZES.radius,
                         paddingVertical: SIZES.base,
+                        borderColor: COLORS.white,
+                        borderWidth: 1,
+                        borderRadius: SIZES.radius,
+                        marginRight: SIZES.radius
                     }}
+                    onPress={() => handleImagePress(route.params.data.immutable_data.image)}
                 >
                     <IconF 
                         name={'image'} 
                         size={32} 
-                        color={COLORS.black}
+                        color={COLORS.gold}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{
                         paddingHorizontal: SIZES.radius,
                         paddingVertical: SIZES.base,
+                        borderColor: COLORS.white,
+                        borderWidth: 1,
+                        borderRadius: SIZES.radius
                     }}
                 >
                     <IconF 
                         name={'share-2'} 
                         size={32} 
-                        color={COLORS.black}
+                        color={COLORS.gold}
                     />
                 </TouchableOpacity>
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 

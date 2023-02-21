@@ -5,6 +5,7 @@ import {
     StyleSheet,
     SafeAreaView,
     Image,
+    ImageBackground,
     TextInput
 } from 'react-native';
 import { Header, IconButton, FormInput, TextButton } from '../../components';
@@ -31,6 +32,9 @@ const AddAccount = ({ navigation }) => {
                     marginHorizontal: SIZES.base,
                     marginTop: 0,
                 }}
+                titleStyle={{
+                    color: COLORS.white
+                }}
                 leftComponent={
                     <IconButton
                         icon={icons.cross}
@@ -41,12 +45,12 @@ const AddAccount = ({ navigation }) => {
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.black
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.black,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -89,7 +93,8 @@ const AddAccount = ({ navigation }) => {
     }
 
     return (
-        <View
+        <ImageBackground 
+            source={images.background}
             style={{
                 flex: 1,
                 backgroundColor: COLORS.white
@@ -118,7 +123,7 @@ const AddAccount = ({ navigation }) => {
                 />
                 <Text
                     style={{
-                        color: COLORS.black,
+                        color: COLORS.white,
                         ...FONTS.body3,
                         alignSelf: 'center'
                     }}
@@ -166,7 +171,7 @@ const AddAccount = ({ navigation }) => {
                     </Text> : null
                 }
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 

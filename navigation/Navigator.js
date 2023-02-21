@@ -18,6 +18,7 @@ import {
     Collections,
     Assets,
     Asset,
+    VideoPlayer,
     // PostReport,
     // Post,
     // PostComReply,
@@ -71,6 +72,10 @@ const Navigator = () => {
                 <Stack.Screen 
                     name="Asset"
                     component={Asset}
+                />
+                <Stack.Screen 
+                    name="VideoPlayer"
+                    component={VideoPlayer}
                 />
                 <Stack.Screen
                     name="ContactUs"

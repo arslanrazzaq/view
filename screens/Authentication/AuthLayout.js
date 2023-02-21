@@ -6,7 +6,8 @@ import {
     ScrollView,
     Platform,
     ActivityIndicator,
-    SafeAreaView
+    SafeAreaView,
+    ImageBackground
 } from 'react-native';
 import { images, SIZES, FONTS, COLORS, icons } from "../../constants";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -28,18 +29,18 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
                     <IconButton
                         icon={icons.back}
                         containerStyle={{
-                            width: 50,
+                            width: 40,
                             height: 40,
                             justifyContent: 'center',
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.gray2
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.gray,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -51,13 +52,13 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
 
 
     return (
-        <View
+        <ImageBackground 
+            source={images.background}
             style={{
-                flex: 1,
-                backgroundColor: COLORS.white
+                flex: 1
             }}
         >
-            <SafeAreaView style={{ backgroundColor: COLORS.white }}>
+            <SafeAreaView>
                 {isHeader ? renderHeader() : null}
             </SafeAreaView>
             {   isLoading ? 
@@ -120,7 +121,7 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
                         style={{
                             textAlign: 'center',
                             ...FONTS.h2,
-                            color: COLORS.black
+                            color: COLORS.white
                         }}
                     >
                         {title}
@@ -128,7 +129,7 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
                     <Text
                         style={{
                             textAlign: 'center',
-                            color: COLORS.darkGray,
+                            color: COLORS.white,
                             marginTop: SIZES.base,
                             ...FONTS.body3
                         }}
@@ -141,7 +142,7 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
                     }
                 </KeyboardAwareScrollView>
             </ScrollView>
-        </View>
+        </ImageBackground>
 
     )
 }

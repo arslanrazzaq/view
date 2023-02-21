@@ -316,7 +316,7 @@ const SignUp = ({ navigation }) => {
                 >
                     <Text
                         style={{
-                            color: COLORS.darkGray,
+                            color: COLORS.white,
                             ...FONTS.body3
                         }}
                     >
@@ -329,7 +329,7 @@ const SignUp = ({ navigation }) => {
                             backgroundColor: null
                         }}
                         labelStyle={{
-                            color: COLORS.primary,
+                            color: COLORS.white,
                             ...FONTS.h3
                         }}
                         onPress={() => navigation.goBack()}
@@ -357,7 +357,7 @@ const SignUp = ({ navigation }) => {
                     >
                         <Text 
                             style={{
-                                color: COLORS.darkGray,
+                                color: COLORS.white,
                                 ...FONTS.body4,
                                 marginTop: SIZES.base,
                                 marginLeft: SIZES.base
@@ -370,7 +370,7 @@ const SignUp = ({ navigation }) => {
                         >
                             <Text 
                                 style={{
-                                    color: COLORS.darkGray,
+                                    color: COLORS.white,
                                     ...FONTS.body4,
                                     marginLeft: SIZES.base
                                 }}

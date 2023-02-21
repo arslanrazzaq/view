@@ -5,9 +5,10 @@ import {
     ActivityIndicator,
     TouchableWithoutFeedback,
     SafeAreaView,
+    ImageBackground,
     FlatList
 } from 'react-native';
-import { FONTS, COLORS, SIZES, icons } from '../../constants';
+import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
 import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
@@ -27,7 +28,7 @@ const Assets = ({ navigation, route }) => {
 
     const [isLoadingExtra, setIsLoadingExtra] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(6);
     const [count, setCount] = useState(true);
 
     const flashListRef = useRef(null);
@@ -90,14 +91,13 @@ const Assets = ({ navigation, route }) => {
             <Header
                 title={`${route?.params?.collection_name} Assets`}
                 titleStyle={{
-                    color: COLORS.black
+                    color: COLORS.white
                 }}
                 containerStyle={{
                     height: 50,
                     marginTop: 0,
                     alignItems: 'center',
-                    paddingHorizontal: SIZES.base,
-                    backgroundColor: COLORS.white
+                    paddingHorizontal: SIZES.base
                 }}
                 leftComponent={
                     <IconButton
@@ -109,12 +109,12 @@ const Assets = ({ navigation, route }) => {
                             alignItems: 'center',
                             borderWidth: 1,
                             borderRadius: SIZES.radius,
-                            borderColor: COLORS.black
+                            borderColor: COLORS.white
                         }}
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.black,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -132,10 +132,10 @@ const Assets = ({ navigation, route }) => {
     }
 
     return (
-        <View
+        <ImageBackground 
+            source={images.background} 
             style={{
-                flex: 1,
-                backgroundColor: COLORS.white
+                flex: 1
             }}
         >
             <SafeAreaView>
@@ -176,7 +176,10 @@ const Assets = ({ navigation, route }) => {
                             marginLeft: index % 2 != 0 ? SIZES.base/2 : SIZES.base,
                             flex: 1,
                             overflow: 'hidden',
-                            backgroundColor: COLORS.lightGray2
+                            borderColor: COLORS.white,
+                            paddingHorizontal: SIZES.base,
+                            paddingTop: SIZES.base,
+                            borderWidth: 1
                         }}
                     >
                         <TouchableWithoutFeedback
@@ -186,6 +189,7 @@ const Assets = ({ navigation, route }) => {
                                 style={{
                                     alignItems: 'center',
                                     borderRadius: SIZES.radius,
+                                    overflow: 'hidden'
                                 }}
                             >
                                 <FastImage
@@ -216,7 +220,7 @@ const Assets = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginHorizontal: SIZES.base,
-                                    color: COLORS.black,
+                                    color: COLORS.white,
                                     ...FONTS.h3,
                                     flex: 1
                                 }}
@@ -229,12 +233,12 @@ const Assets = ({ navigation, route }) => {
                 ListFooterComponent={
                     <View style={{ marginTop: SIZES.radius, alignItems: 'center' }}>
                         {isLoadingExtra && !isLoading ? <ActivityIndicator /> : null}
-                        { !count ? <Text style={{  ...FONTS.body4, color: COLORS.black }}>No more data at the moment</Text> : null}
+                        { !count ? <Text style={{  ...FONTS.body4, color: COLORS.white }}>No more data at the moment</Text> : null}
                         <View style={{ height: 200 }} />
                     </View>
                 }
             />
-        </View>
+        </ImageBackground>
     )
 }
 

@@ -7,6 +7,8 @@ PODS:
     - AppAuth/Core
   - BEMCheckBox (1.4.1)
   - boost (1.76.0)
+  - BVLinearGradient (2.6.2):
+    - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.2)
@@ -494,6 +496,11 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
+  - react-native-video (5.2.1):
+    - React-Core
+    - react-native-video/Video (= 5.2.1)
+  - react-native-video/Video (5.2.1):
+    - React-Core
   - React-perflogger (0.71.2)
   - React-RCTActionSheet (0.71.2):
     - React-Core/RCTActionSheetHeaders (= 0.71.2)
@@ -611,6 +618,11 @@ PODS:
   - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
+  - RNSound (0.11.2):
+    - React-Core
+    - RNSound/Core (= 0.11.2)
+  - RNSound/Core (0.11.2):
+    - React-Core
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -624,6 +636,7 @@ PODS:
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -680,6 +693,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -704,6 +718,7 @@ DEPENDENCIES:
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -753,6 +768,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  BVLinearGradient:
+    :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -795,6 +812,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -843,6 +862,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keychain"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -850,6 +871,7 @@ SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: d58428b28fe1f5070fe993495b0e2eaf701d3820
@@ -906,6 +928,7 @@ SPEC CHECKSUMS:
   React-logger: 97987f46779d8dd24656474ad0c43a5b459f31d6
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
+  react-native-video: c26780b224543c62d5e1b2a7244a5cd1b50e8253
   React-perflogger: c7ccda3d1d1da837f7ff4e54e816022a6803ee87
   React-RCTActionSheet: 01c125aebbad462a24228f68c584c7a921d6c28e
   React-RCTAnimation: 5277a9440acffc4a5b7baa6ae3880fe467277ae6
@@ -930,6 +953,7 @@ SPEC CHECKSUMS:
   RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
   RNKeychain: ff836453cba46938e0e9e4c22e43d43fa2c90333
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
+  RNSound: 6c156f925295bdc83e8e422e7d8b38d33bc71852
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608

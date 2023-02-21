@@ -155,7 +155,7 @@ const SignIn = ({ navigation, route }) => {
                             backgroundColor: null
                         }}
                         labelStyle={{
-                            color: COLORS.gray,
+                            color: COLORS.white,
                             ...FONTS.body4
                         }}
                         onPress={() => navigation.navigate("ForgotPassword")}
@@ -182,7 +182,7 @@ const SignIn = ({ navigation, route }) => {
                 >
                     <Text
                         style={{
-                            color: COLORS.darkGray,
+                            color: COLORS.white,
                             ...FONTS.body3
                         }}
                     >
@@ -195,7 +195,7 @@ const SignIn = ({ navigation, route }) => {
                             backgroundColor: null
                         }}
                         labelStyle={{
-                            color: COLORS.primary,
+                            color: COLORS.white,
                             ...FONTS.h3
                         }}
                         onPress={() => navigation.navigate("SignUp")}

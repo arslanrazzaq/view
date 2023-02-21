@@ -22,6 +22,7 @@ const Header = ({ containerStyle, title, titleStyle, leftComponent, rightCompone
                 <Text
                     style={{
                         ...FONTS.h3,
+                        fontSize: 20,
                         ...titleStyle
                     }}
                 >
