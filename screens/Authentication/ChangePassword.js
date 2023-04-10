@@ -28,15 +28,15 @@ const ChangePassword = ({ navigation, route }) => {
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [showPassConfirm, setShowPassConfirm] = useState(false);
     
-    useEffect(() => { 
-        const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
-            if (credentials && credentials.username && credentials.password) {
-                navigation.goBack();
-            }
-        });
-        return unsubscribe;
-    }, [navigation]);
+    // useEffect(() => { 
+    //     const unsubscribe = navigation.addListener('focus', async () => {
+    //         const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
+    //         if (credentials && credentials.username && credentials.password) {
+    //             navigation.goBack();
+    //         }
+    //     });
+    //     return unsubscribe;
+    // }, [navigation]);
 
     const isEnabledSignIn = () => {
         return password != "" && passwordError == "" && confirmPassword != "" && confirmPasswordError == "" && commonErrorMb == ""

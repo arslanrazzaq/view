@@ -34,15 +34,15 @@ const SignInInit = ({ navigation, route }) => {
         return isSelected
     }
 
-    useEffect(() => { 
-        const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
-            if (credentials && credentials.username && credentials.password) {
-                navigation.push('Home');
-            }
-        });
-        return unsubscribe;
-    }, [navigation]);
+    // useEffect(() => { 
+    //     const unsubscribe = navigation.addListener('focus', async () => {
+    //         const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
+    //         if (credentials && credentials.username && credentials.password) {
+    //             navigation.push('Home');
+    //         }
+    //     });
+    //     return unsubscribe;
+    // }, [navigation]);
 
     useEffect(() => {
         GoogleSignin.configure({
@@ -68,11 +68,11 @@ const SignInInit = ({ navigation, route }) => {
                 });
                 setIsLoading(false);
                 login(response.data.token, response.data.user);
-                if (route.params && route.params.navigateTo) {
-                    navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-                } else {
-                    navigation.push('Home');
-                }
+                // if (route.params && route.params.navigateTo) {
+                //     navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
+                // } else {
+                //     navigation.push('Home');
+                // }
             } catch (error) {
                 console.log('error comes:', error);
                 if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
@@ -188,11 +188,11 @@ const SignInInit = ({ navigation, route }) => {
                 });
                 setIsLoading(false);
                 login(response.data.token, response.data.user);
-                if (route.params && route.params.navigateTo) {
-                    navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-                } else {
-                    navigation.navigate('Home');
-                }
+                // if (route.params && route.params.navigateTo) {
+                //     navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
+                // } else {
+                //     navigation.navigate('Home');
+                // }
             } catch (error) {
                 if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
                     setCommonError(error.response.data.msg);

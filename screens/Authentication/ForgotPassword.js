@@ -25,15 +25,15 @@ const ForgotPassword = ({ navigation }) => {
     const [FACode, setFACode] = useState("");
     const [FACodeError, setFACodeError] = useState("");
 
-    useEffect(() => { 
-        const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
-            if (credentials && credentials.username && credentials.password) {
-                navigation.goBack();
-            }
-        });
-        return unsubscribe;
-    }, [navigation]);
+    // useEffect(() => { 
+    //     const unsubscribe = navigation.addListener('focus', async () => {
+    //         const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
+    //         if (credentials && credentials.username && credentials.password) {
+    //             navigation.goBack();
+    //         }
+    //     });
+    //     return unsubscribe;
+    // }, [navigation]);
 
     const isEnabledSignIn = () => {
         if (isFACode) {

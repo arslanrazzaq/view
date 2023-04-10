@@ -88,10 +88,22 @@ const Collections = ({ navigation, route }) => {
                 }
                 rightComponent={
                     <IconButton
+                        icon={icons.home}
                         containerStyle={{
                             width: 40,
-                            height: 40
+                            height: 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderWidth: 1,
+                            borderRadius: SIZES.radius,
+                            borderColor: COLORS.white
                         }}
+                        iconStyle={{
+                            width: 20,
+                            height: 20,
+                            tintColor: COLORS.gold,
+                        }}
+                        onPress={() => navigation.push('Home')}
                     />
                 }
             />

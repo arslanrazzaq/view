@@ -28,7 +28,7 @@ const Assets = ({ navigation, route }) => {
 
     const [isLoadingExtra, setIsLoadingExtra] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(6);
+    const [pageSize, setPageSize] = useState(10);
     const [count, setCount] = useState(true);
 
     const flashListRef = useRef(null);
@@ -121,10 +121,22 @@ const Assets = ({ navigation, route }) => {
                 }
                 rightComponent={
                     <IconButton
+                        icon={icons.home}
                         containerStyle={{
                             width: 40,
-                            height: 40
+                            height: 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderWidth: 1,
+                            borderRadius: SIZES.radius,
+                            borderColor: COLORS.white
                         }}
+                        iconStyle={{
+                            width: 20,
+                            height: 20,
+                            tintColor: COLORS.gold,
+                        }}
+                        onPress={() => navigation.push('Home')}
                     />
                 }
             />

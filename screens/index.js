@@ -40,6 +40,9 @@ import Assets from "./Assets/Assets";
 import Asset from "./Assets/Asset";
 import VideoPlayer from "./Video/VideoPlayer";
 
+import Polygon from './Polygon/Polygon';
+import AddAccountInit from "./AddAccount/AddInitAccount";
+
 export {
     Navigator,
     AuthLayout,
@@ -52,10 +55,13 @@ export {
     // ProfileTab,
     ContactUs,
     AddAccount,
+    AddAccountInit,
     Collections,
     Assets,
     Asset,
     VideoPlayer,
+
+    Polygon,
     // DelAccount,
     // DailyContest,
     // DailyContestStep1,

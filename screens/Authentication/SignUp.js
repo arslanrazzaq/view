@@ -41,15 +41,15 @@ const SignUp = ({ navigation }) => {
         return isSelected && email != "" && password != "" && emailError == "" && username !== "" && username.trim() !== "" && usernameError == "" && passwordError == ""
     }
 
-    useEffect(() => { 
-        const unsubscribe = navigation.addListener('focus', async () => {
-            const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
-            if (credentials && credentials.username && credentials.password) {
-                navigation.goBack();
-            }
-        });
-        return unsubscribe;
-    }, [navigation]);
+    // useEffect(() => { 
+    //     const unsubscribe = navigation.addListener('focus', async () => {
+    //         const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
+    //         if (credentials && credentials.username && credentials.password) {
+    //             navigation.goBack();
+    //         }
+    //     });
+    //     return unsubscribe;
+    // }, [navigation]);
 
     useEffect(() => { 
         GoogleSignin.configure({
@@ -99,7 +99,7 @@ const SignUp = ({ navigation }) => {
                 });
                 setIsLoading(false);
                 login(response.data.token, response.data.user);
-                navigation.navigate('Home');
+                // navigation.navigate('Home');
             } catch (error) {
                 if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
                     setCommonError(error.response.data.msg);

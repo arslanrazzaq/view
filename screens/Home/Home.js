@@ -193,7 +193,7 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<Image source={images.view_logo} resizeMode={'contain'} style={{ height: 30, width: 30 }} />}
+                title={<Image source={images.view_logo} resizeMode={'contain'} style={{ height: 40, width: 100 }} />}
                 titleStyle={{
                     color: COLORS.white,
                 }}
@@ -240,11 +240,21 @@ const Home = ({ navigation }) => {
                             height: 20,
                             tintColor: COLORS.gold,
                         }}
-                        onPress={() => navigation.push('AddAccount')}
+                        onPress={() => navigation.push('AddAccountInit')}
                     />
                 }
             />
         )
+    }
+
+
+    const handleAccountSwitch = (item) => {
+        if (item.type == 'proton') {
+            navigation.push('Collections', { user_account: item.username })
+        } else {
+            navigation.push('Polygon', { user_account: item.username })
+        }
+
     }
 
     return (
@@ -302,7 +312,7 @@ const Home = ({ navigation }) => {
                     return (
                         !isLoading ?
                             <TouchableWithoutFeedback
-                                onPress={() => navigation.push('Collections', { user_account: item.username })}
+                                onPress={() => handleAccountSwitch(item)}
                             >
                                 <View
                                     style={{

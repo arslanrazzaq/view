@@ -3123,6 +3123,13 @@
   "resolved" "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
   "version" "1.0.2"
 
+"encoding@^0.1.0":
+  "integrity" "sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A=="
+  "resolved" "https://registry.npmjs.org/encoding/-/encoding-0.1.13.tgz"
+  "version" "0.1.13"
+  dependencies:
+    "iconv-lite" "^0.6.2"
+
 "end-of-stream@^1.1.0":
   "integrity" "sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q=="
   "resolved" "https://registry.npmjs.org/end-of-stream/-/end-of-stream-1.4.4.tgz"
@@ -4070,6 +4077,13 @@
   "integrity" "sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw=="
   "resolved" "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"
   "version" "2.1.0"
+
+"iconv-lite@^0.6.2":
+  "integrity" "sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw=="
+  "resolved" "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.6.3.tgz"
+  "version" "0.6.3"
+  dependencies:
+    "safer-buffer" ">= 2.1.2 < 3.0.0"
 
 "ieee754@^1.1.13":
   "integrity" "sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA=="
@@ -6232,7 +6246,7 @@
   "resolved" "https://registry.npmjs.org/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz"
   "version" "8.6.3"
 
-"react-native-gesture-handler@^1.10.3", "react-native-gesture-handler@>= 1.0.0":
+"react-native-gesture-handler@*", "react-native-gesture-handler@^1.10.3", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
   "version" "1.10.3"
@@ -6284,10 +6298,15 @@
   "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.6.2.tgz"
   "version" "2.6.2"
 
-"react-native-reanimated@>= 1.0.0":
-  "integrity" "sha512-DquSbl7P8j4SAmc+kRdd75Ianm8G+IYQ9T4AQ6lrpLVeDkhZmjWI0wkutKWnp6L7c5XNVUrFDUf69dwETLCItQ=="
-  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.14.4.tgz"
-  "version" "2.14.4"
+"react-native-reanimated-carousel@^3.3.0":
+  "integrity" "sha512-rprUl+LqWoXyH/8OvHv+m9Kol2YORHEnz7tvRum+o4ciCUCcYnafQBbSqG44RMllOCqm3WOAcuEX5p8a7W3ZZw=="
+  "resolved" "https://registry.npmjs.org/react-native-reanimated-carousel/-/react-native-reanimated-carousel-3.3.0.tgz"
+  "version" "3.3.0"
+
+"react-native-reanimated@^3.0.2", "react-native-reanimated@>= 1.0.0", "react-native-reanimated@>=2.7.0":
+  "integrity" "sha512-8Et90yTI9yxchGbDP79k391XZqc/64zNbASbGy8X3Vgv4EbZ1M3IkKwcIbZmbVwpA804VJ6V9nJAGUh9fP0LrA=="
+  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.0.2.tgz"
+  "version" "3.0.2"
   dependencies:
     "@babel/plugin-transform-object-assign" "^7.16.7"
     "@babel/preset-typescript" "^7.16.7"
@@ -6338,7 +6357,7 @@
     "prop-types" "^15.7.2"
     "shaka-player" "^2.5.9"
 
-"react-native@*", "react-native@>= 0.30.0", "react-native@>= 0.62", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.57.0", "react-native@>=0.60.0", "react-native@>=0.61.3", "react-native@>=0.8.0", "react-native@0.71.2":
+"react-native@*", "react-native@>= 0.30.0", "react-native@>= 0.62", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.57.0", "react-native@>=0.6.0", "react-native@>=0.60.0", "react-native@>=0.61.3", "react-native@>=0.8.0", "react-native@0.71.2":
   "integrity" "sha512-ZSianM+j+09LoEdVIhrAP/uP8sQhT7dH6olCqM2xlpxmfCgA5NubsK6NABIuZiBlmmqjigyijm5Y/GhBIHDvEg=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.2.tgz"
   "version" "0.71.2"
@@ -6400,7 +6419,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.23.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", "react@^18.2.0", "react@>= 15.2.1", "react@>=16.11.0", "react@>=17.0.0", "react@18.2.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", "react@^18.2.0", "react@>= 15.2.1", "react@>=16.11.0", "react@>=16.8.0", "react@>=17.0.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -6662,6 +6681,11 @@
   "version" "1.1.0"
   dependencies:
     "ret" "~0.1.10"
+
+"safer-buffer@>= 2.1.2 < 3.0.0":
+  "integrity" "sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg=="
+  "resolved" "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
+  "version" "2.1.2"
 
 "sax@>=0.6.0":
   "integrity" "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="

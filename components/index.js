@@ -10,6 +10,8 @@ import FormInputCheck from "./FomInputCheck";
 import RadioButton from "./RadioButton";
 import FormPicker from "./FormPicker";
 import ExpandableView from "./ExpandableView";
+import SliderEntry from "./SliderEntry";
+
 
 export { 
     TextButton, 
@@ -17,6 +19,7 @@ export {
     FormInputCheck,
     TextIconButton, 
     Header, 
+    SliderEntry,
     FormPicker,
     RadioButton,
     PostCard,

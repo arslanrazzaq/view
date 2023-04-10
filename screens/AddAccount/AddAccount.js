@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
     View,
     Text,
@@ -15,13 +15,18 @@ import { BASE_URL } from '../../config';
 import { AuthContext } from '../../Context/authContext';
 
 
-const AddAccount = ({ navigation }) => {
+const AddAccount = ({ navigation, route }) => {
 
     const [accountName, setAccountName] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [commonError, setCommonError] = useState("");
+    const [accountType, setAccountType] = useState('');
 
     const { userInfo } = useContext(AuthContext);
+
+    useEffect(() => {
+        setAccountType(route.params.type);
+    }, []);
 
     const renderHeader = () => {
         return (
@@ -77,7 +82,7 @@ const AddAccount = ({ navigation }) => {
             const response = await axios.post(`${BASE_URL}/nfts/user/create`, {
                 user_id: userInfo?.user?.id,
                 username: accountName,
-                type: 'proton'
+                type: accountType == 'PROTON' ? 'proton' : 'polygon'
             });
             setIsLoading(false);
             navigation.push('Home');
@@ -121,15 +126,28 @@ const AddAccount = ({ navigation }) => {
                         marginBottom: SIZES.padding 
                     }}
                 />
-                <Text
-                    style={{
-                        color: COLORS.white,
-                        ...FONTS.body3,
-                        alignSelf: 'center'
-                    }}
-                >
-                    Add a PROTON account below to get started. Only enter your account name. No public or private keys are needed to track your accounts.
-                </Text>
+                {   
+                    accountType == 'PROTON' ?
+                        <Text
+                            style={{
+                                color: COLORS.white,
+                                ...FONTS.body3,
+                                alignSelf: 'center'
+                            }}
+                        >
+                            Add a PROTON account below to get started. Only enter your account name. No public or private keys are needed to track your accounts.
+                        </Text>
+                    :
+                        <Text
+                            style={{
+                                color: COLORS.white,
+                                ...FONTS.body3,
+                                alignSelf: 'center'
+                            }}
+                        >
+                            Add a POLYGON account below to get started. Only enter your account hash address. No public or private keys are needed to track your accounts.
+                        </Text>
+                }
                 <FormInput 
                     label=""
                     containerStyle={{
@@ -143,7 +161,7 @@ const AddAccount = ({ navigation }) => {
                     onChange={(value) => {
                         setAccountName(value);
                     }}
-                    placeholder={'PROTON account name'}
+                    placeholder={accountType == 'PROTON' ? `PROTON account name` : `POLYGON account hash address`}
                 />
                 <TextButton
                     label="Add Account"

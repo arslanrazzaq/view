@@ -7,7 +7,7 @@ import {
     Text,
 } from 'react-native';
 import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
-import { Header, IconButton } from '../../components';
+import { Header, IconButton, TextIconButton } from '../../components';
 import { AuthContext } from '../../Context/authContext';
 import Video from 'react-native-video';
 import Icon1 from 'react-native-vector-icons/FontAwesome';

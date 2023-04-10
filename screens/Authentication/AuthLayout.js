@@ -69,7 +69,7 @@ const AuthLayout = ({ title, subTitle, titleContainerStyle, children, navigation
                             height: '100%',
                             zIndex: 3, // works on ios
                             elevation: 3, // works on android
-                            backgroundColor: 'rgba(255,255,255,0.75)' 
+                            backgroundColor: 'rgba(255,255,255,0.75)'
                         }}
                     >
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
