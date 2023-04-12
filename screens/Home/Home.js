@@ -193,7 +193,7 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<Image source={images.view_logo} resizeMode={'contain'} style={{ height: 40, width: 100 }} />}
+                title={<Image source={images.view_logo_t} resizeMode={'contain'} style={{ height: 40, width: 100 }} />}
                 titleStyle={{
                     color: COLORS.white,
                 }}

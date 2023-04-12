@@ -41,7 +41,7 @@ export default class SliderEntry extends Component {
                             flex: 1,
                             justifyContent: "center",
                             alignItems: "center",
-                            backgroundColor: "#fff",
+                            backgroundColor: COLORS.black,
                             borderRadius: 8,
                             overflow: "hidden",
                         }}

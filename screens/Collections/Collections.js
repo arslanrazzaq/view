@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import moment from 'moment';
-import { BASE_URL_API } from '../../config';
+import { ACCESS_TOKEN, BASE_URL_API } from '../../config';
 import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
@@ -167,7 +167,7 @@ const Collections = ({ navigation, route }) => {
                             >
                                 <FastImage
                                     source={{  
-                                        uri: `https://solidcircle.mypinata.cloud/ipfs/${item.collection.img}`,
+                                        uri: `https://solidcircle.mypinata.cloud/ipfs/${item.collection.img}${ACCESS_TOKEN}`,
                                         priority: FastImage.priority.high 
                                     }}
                                     resizeMode={FastImage.resizeMode.contain}

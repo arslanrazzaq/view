@@ -12,6 +12,7 @@ import { AuthContext } from '../../Context/authContext';
 import ImageView from "react-native-image-viewing";
 import Sound from 'react-native-sound';
 import Carousel from "react-native-reanimated-carousel";
+import { ACCESS_TOKEN } from '../../config';
 
 Sound.setCategory('Playback');
 
@@ -54,7 +55,7 @@ const Asset = ({ navigation, route }) => {
             let elem = route.params.data.schema.format[index];
             if (elem.type == 'image') {
                 images.push({
-                    illustration: route.params.data.immutable_data[`${elem.name}`].startsWith("https://") ? `${route.params.data.immutable_data[`${elem.name}`]}` : `https://solidcircle.mypinata.cloud/ipfs/${route.params.data.immutable_data[`${elem.name}`]}`,
+                    illustration: route.params.data.immutable_data[`${elem.name}`].startsWith("https://") ? `${route.params.data.immutable_data[`${elem.name}`]}` : `https://solidcircle.mypinata.cloud/ipfs/${route.params.data.immutable_data[`${elem.name}`]}${ACCESS_TOKEN}`,
                 });
             }
         }
@@ -63,7 +64,7 @@ const Asset = ({ navigation, route }) => {
 
     useEffect(() => {
         if (route.params.data.immutable_data.audio) {
-            let url = route.params.data.immutable_data.audio.startsWith("https://") ? `${route.params.data.immutable_data.audio}` : `https://solidcircle.mypinata.cloud/ipfs/${route.params.data.immutable_data.audio}`;
+            let url = route.params.data.immutable_data.audio.startsWith("https://") ? `${route.params.data.immutable_data.audio}` : `https://solidcircle.mypinata.cloud/ipfs/${route.params.data.immutable_data.audio}${ACCESS_TOKEN}`;
             audio = new Sound(
                 url,
                 null,
@@ -179,7 +180,7 @@ const Asset = ({ navigation, route }) => {
     }
 
     const playVideo = (val) => {
-        navigation.push('VideoPlayer', { url: val.startsWith("https://") ? `${val}` : `https://solidcircle.mypinata.cloud/ipfs/${val}` })
+        navigation.push('VideoPlayer', { url: val.startsWith("https://") ? `${val}` : `https://solidcircle.mypinata.cloud/ipfs/${val}${ACCESS_TOKEN}` })
     }
 
     const baseOptions = { vertical: false, width: viewportWidth, height: viewportHeight * 0.6 };
