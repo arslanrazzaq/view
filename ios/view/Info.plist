@@ -20,6 +20,23 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+  
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>fb913649103050653</string>
+    </array>
+    </dict>
+  </array>
+  <key>FacebookAppID</key>
+  <string>913649103050653</string>
+  <key>FacebookClientToken</key>
+  <string>0fcec9704a6a8016670e6127f535d398</string>
+  <key>FacebookDisplayName</key>
+  <string>View</string>
+  
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

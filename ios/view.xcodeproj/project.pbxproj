@@ -78,6 +78,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* viewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = viewTests.m; sourceTree = "<group>"; };
 		0418EF43299E3E070075C457 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0444CC8129F079A3008A929C /* view.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = view.entitlements; path = view/view.entitlements; sourceTree = "<group>"; };
+		0444CC8229F079E9008A929C /* viewRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = viewRelease.entitlements; path = view/viewRelease.entitlements; sourceTree = "<group>"; };
 		0464C85C299E859D008E5CEE /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		0464C85D299E859D008E5CEE /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		0464C85E299E859D008E5CEE /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
@@ -180,6 +182,8 @@
 		13B07FAE1A68108700A75B9A /* view */ = {
 			isa = PBXGroup;
 			children = (
+				0444CC8229F079E9008A929C /* viewRelease.entitlements */,
+				0444CC8129F079A3008A929C /* view.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -695,6 +699,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = view/view.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = view/Info.plist;
@@ -722,6 +727,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = view/viewRelease.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = view/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
