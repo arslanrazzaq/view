@@ -27,6 +27,7 @@
     "react": "18.2.0",
     "react-native": "0.71.2",
     "react-native-fast-image": "^8.5.11",
+    "react-native-fbsdk-next": "^11.2.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-hyperlink": "^0.0.22",
     "react-native-image-viewing": "^0.2.2",

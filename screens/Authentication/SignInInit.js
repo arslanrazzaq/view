@@ -13,7 +13,7 @@ import { FONTS, SIZES, COLORS, icons } from '../../constants';
 import { TextButton, TextIconButton } from '../../components';
 import axios from 'axios';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-// import { LoginManager, AccessToken, Profile } from 'react-native-fbsdk-next';
+import { LoginManager, AccessToken, Profile } from 'react-native-fbsdk-next';
 import { AuthContext } from '../../Context/authContext';
 import { BASE_URL } from '../../config';
 import CheckBox from '@react-native-community/checkbox';
@@ -107,58 +107,58 @@ const SignInInit = ({ navigation, route }) => {
 
     const facebookLogin = async () => {
         setIsLoading(true);
-        // LoginManager.logInWithPermissions(['public_profile', 'email'])
-        //     .then(async result => {
-        //         if (result.isCancelled) {
-        //             setIsLoading(false);
-        //             setCommonError('Facebook Login cancelled');
-        //         } else {
-        //             try {
-        //                 let userProfile = await Profile.getCurrentProfile();
-        //                 if (userProfile) {
-        //                     let userToken = await AccessToken.getCurrentAccessToken();
-        //                     try {
-        //                         const response = await axios.post(`${BASE_URL}/user/social/login`, {
-        //                             email: userProfile.userID,
-        //                             firstName: userProfile.firstName,
-        //                             lastName: userProfile.lastName,
-        //                             profileImage: userProfile.imageURL,
-        //                             username: userProfile.userID,
-        //                             token: userToken.accessToken.toString(),
-        //                             type: 'facebook',
-        //                             role: 'user'
-        //                         });
-        //                         setIsLoading(false);
-        //                         login(response.data.token, response.data.user);
-        //                         if (route.params && route.params.navigateTo) {
-        //                             navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
-        //                         } else {
-        //                             navigation.navigate('Home');
-        //                         }
-        //                     } catch (error) {
-        //                         if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-        //                             setCommonError(error.response.data.msg);
-        //                             setIsLoading(false);
-        //                         } else {
-        //                             setCommonError('Unknown Error, Try again later');
-        //                             setIsLoading(false);
-        //                         }
-        //                     }
-        //                 } else {
-        //                     setCommonError('Login failed unable to get user profile');
-        //                     setIsLoading(false);
-        //                 }
-        //             } catch (error) {
-        //                 setIsLoading(false);
-        //                 console.log("Login fail with error: " + error);
-        //                 setCommonError('Facebook Login failed with error, Try again later');
-        //             }
-        //         }
-        //     }, error => {
-        //         setIsLoading(false);
-        //         console.log("Login fail with error: " + error);
-        //         setCommonError('Facebook Login failed with error, Try again later');
-        //     })
+        LoginManager.logInWithPermissions(['public_profile', 'email'])
+            .then(async result => {
+                if (result.isCancelled) {
+                    setIsLoading(false);
+                    setCommonError('Facebook Login cancelled');
+                } else {
+                    try {
+                        let userProfile = await Profile.getCurrentProfile();
+                        if (userProfile) {
+                            let userToken = await AccessToken.getCurrentAccessToken();
+                            try {
+                                const response = await axios.post(`${BASE_URL}/user/social/login`, {
+                                    email: userProfile.userID,
+                                    firstName: userProfile.firstName,
+                                    lastName: userProfile.lastName,
+                                    profileImage: userProfile.imageURL,
+                                    username: userProfile.userID,
+                                    token: userToken.accessToken.toString(),
+                                    type: 'facebook',
+                                    role: 'user'
+                                });
+                                setIsLoading(false);
+                                login(response.data.token, response.data.user);
+                                if (route.params && route.params.navigateTo) {
+                                    navigation.push(`${route.params.navigateTo.screen}`, route.params.navigateTo.data);
+                                } else {
+                                    navigation.navigate('Home');
+                                }
+                            } catch (error) {
+                                if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+                                    setCommonError(error.response.data.msg);
+                                    setIsLoading(false);
+                                } else {
+                                    setCommonError('Unknown Error, Try again later');
+                                    setIsLoading(false);
+                                }
+                            }
+                        } else {
+                            setCommonError('Login failed unable to get user profile');
+                            setIsLoading(false);
+                        }
+                    } catch (error) {
+                        setIsLoading(false);
+                        console.log("Login fail with error: " + error);
+                        setCommonError('Facebook Login failed with error, Try again later');
+                    }
+                }
+            }, error => {
+                setIsLoading(false);
+                console.log("Login fail with error: " + error);
+                setCommonError('Facebook Login failed with error, Try again later');
+            })
     }
 
     const onAppleButtonPress = async () => {
@@ -382,7 +382,9 @@ const SignInInit = ({ navigation, route }) => {
                             By using our service, you agree to our
                         </Text>
                         <TouchableOpacity
-                            onPress={() => { Linking.openURL(`https://www.lunahunt.com/legal`); }}
+                            onPress={() => { 
+                            //    Linking.openURL(`https://www.lunahunt.com/legal`); 
+                            }}
                         >
                             <Text 
                                 style={{
