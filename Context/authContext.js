@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         //     await Keychain.setGenericPassword('', '');
         // } else {
             await Keychain.resetGenericPassword({ service: 'view-s-token' });
-            navigation.push('SignInInit');
+            //navigation.push('SignInInit');
         //}
         setUserInfo({});
         setIsLoadingContext(false);

@@ -25,7 +25,7 @@ const DeleteAccountConfirmation = ({ navigation }) => {
             setIsLoading(false);
             logout();
             Alert.alert('Delete Account', `Your Account has been deleted successfully`);
-            navigation.push('Home');
+            //navigation.push('Home');
         } catch (error) {
             setIsLoading(false);
             if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
