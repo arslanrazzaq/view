@@ -183,7 +183,7 @@ const Asset = ({ navigation, route }) => {
         navigation.push('VideoPlayer', { url: val.startsWith("https://") ? `${val}` : `https://solidcircle.mypinata.cloud/ipfs/${val}${ACCESS_TOKEN}` })
     }
 
-    const baseOptions = { vertical: false, width: viewportWidth, height: viewportHeight * 0.6 };
+    const baseOptions = { vertical: false, width: viewportWidth, height: viewportHeight * 0.8 };
 
     return (
         <ImageBackground
@@ -202,6 +202,7 @@ const Asset = ({ navigation, route }) => {
                 visible={visible}
                 onRequestClose={() => setIsVisible(false)}
             />
+            
             <Carousel
                 {...baseOptions}
                 loop={false}
@@ -213,7 +214,7 @@ const Asset = ({ navigation, route }) => {
                 data={imagesToUse}
                 renderItem={_renderItemWithParallax}
             />
-            
+        
             <View
                 style={{
                     alignItems: 'center',
@@ -224,7 +225,7 @@ const Asset = ({ navigation, route }) => {
                     borderRadius: SIZES.radius,
                     marginHorizontal: SIZES.padding
                 }}
-            >
+            > 
             </View>
         </ImageBackground>
     )
