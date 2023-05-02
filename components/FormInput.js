@@ -66,6 +66,7 @@ const FormInput = ({
                 <TextInput 
                     style={{
                         flex: 1,
+                        color: COLORS.black, 
                         ...inputStyle
                     }}
                     textAlign={textAlign}
