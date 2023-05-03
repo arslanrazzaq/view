@@ -82,7 +82,7 @@ const Navigator = () => {
                     >
                         <Stack.Screen
                             name="Home"
-                            component={MainLayout}
+                            component={Home}
                         />
                         <Stack.Screen 
                             name="Polygon"
