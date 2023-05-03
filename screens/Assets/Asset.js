@@ -183,7 +183,7 @@ const Asset = ({ navigation, route }) => {
         navigation.push('VideoPlayer', { url: val.startsWith("https://") ? `${val}` : `https://solidcircle.mypinata.cloud/ipfs/${val}${ACCESS_TOKEN}` })
     }
 
-    const baseOptions = { vertical: false, width: viewportWidth, height: viewportHeight * 0.8 };
+    const baseOptions = { vertical: false, width: viewportWidth, height: viewportHeight * 0.725 };
 
     return (
         <ImageBackground

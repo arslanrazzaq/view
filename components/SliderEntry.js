@@ -30,7 +30,7 @@ export default class SliderEntry extends Component {
                 activeOpacity={1}
                 style={{
                     width: viewportWidth,
-                    height: viewportHeight * 0.8,
+                    height: viewportHeight * 0.725,
                     paddingHorizontal: itemHorizontalMargin,
                 }}
                 onPress={() => handleImagePress(illustration)}
