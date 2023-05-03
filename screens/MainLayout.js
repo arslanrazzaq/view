@@ -144,7 +144,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
     });
 
     React.useEffect(() => {
-        console.log(navigation)
+        // console.log(navigation)
         if (route?.params?.screen) {
             handleSelectTab(route.params.screen);
         } else {
