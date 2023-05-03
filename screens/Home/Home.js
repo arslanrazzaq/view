@@ -222,7 +222,7 @@ const Home = ({ navigation }) => {
                             tintColor: COLORS.gold,
                         }}
                         onPress={() => {  
-                            navigation.dispatch(DrawerActions.openDrawer())
+                            // navigation.dispatch(DrawerActions.openDrawer())
                             //  navigation.openDrawer()       
                             //logout(navigation)
                         }}
