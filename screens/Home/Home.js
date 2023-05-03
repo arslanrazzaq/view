@@ -26,6 +26,7 @@ import { BASE_URL } from '../../config';
 import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
+import {DrawerActions} from '@react-navigation/native';
 
 let selectedUser = null;
 let selectedPostToGo = null;
@@ -220,7 +221,11 @@ const Home = ({ navigation }) => {
                             height: 20,
                             tintColor: COLORS.gold,
                         }}
-                        onPress={() => logout(navigation)}
+                        onPress={() => {  
+                            navigation.dispatch(DrawerActions.openDrawer())
+                            //  navigation.openDrawer()       
+                            //logout(navigation)
+                        }}
                     />
                 }
                 rightComponent={

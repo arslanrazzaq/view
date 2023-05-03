@@ -38,7 +38,7 @@ import {
     // DailyContestStep3,
     // DailyContestInit,
     // DailyContestChoosePhotos,
-    // MainLayout,
+    MainLayout,
     Polygon
 } from '../screens';
 import { AuthContext } from "../Context/authContext";
@@ -82,7 +82,7 @@ const Navigator = () => {
                     >
                         <Stack.Screen
                             name="Home"
-                            component={Home}
+                            component={MainLayout}
                         />
                         <Stack.Screen 
                             name="Polygon"
