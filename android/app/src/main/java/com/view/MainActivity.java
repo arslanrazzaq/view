@@ -1,4 +1,4 @@
-package com.view;
+package com.solidcircle.view;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.view",
+  "applicationId": "com.solidcircle.view",
   "variantName": "release",
   "elements": [
     {

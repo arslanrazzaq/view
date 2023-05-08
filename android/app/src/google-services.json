@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:662268974133:android:237919860ece3025a78d7c",
         "android_client_info": {
-          "package_name": "com.view"
+          "package_name": "com.solidcircle.view"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "662268974133-ks730q1k45m253tfrkd8j02ftfekln7f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.view",
+            "package_name": "com.solidcircle.view",
             "certificate_hash": "fea24e7fab41b02a6c1748fccb60e5f2b2036890"
           }
         },

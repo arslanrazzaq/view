@@ -1,4 +1,4 @@
-package com.view;
+package com.solidcircle.view;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

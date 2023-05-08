@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.view"
+    namespace "com.solidcircle.view"
     defaultConfig {
-        applicationId "com.view"
+        applicationId "com.solidcircle.view"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
