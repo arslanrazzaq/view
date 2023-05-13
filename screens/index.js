@@ -32,7 +32,7 @@ import ChangePassword from "./Authentication/ChangePassword";
 // import SelectGender from "./Profile/SelectGender";
 // import SelectDOB from "./Profile/SelectDOB";
 // import SelectNationality from "./Profile/SelectNationality";
-// import ProfileTab from "./ProfileTab/ProfileTab";
+import ProfileTab from "./ProfileTab/ProfileTab";
 // import PostComReply from "./Post/PostComReply";
 import AddAccount from "./AddAccount/AddAccount";
 import Collections from "./Collections/Collections";
@@ -52,7 +52,7 @@ export {
     // PostReport,
     // Post,
     // PostComReply,
-    // ProfileTab,
+    ProfileTab,
     ContactUs,
     AddAccount,
     AddAccountInit,

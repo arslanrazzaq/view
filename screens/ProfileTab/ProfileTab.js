@@ -4,10 +4,14 @@ import {
     Text,
     TouchableOpacity,
     Image,
+    ImageBackground,
+    SafeAreaView
 } from 'react-native';
-import { COLORS, SIZES, FONTS, icons } from '../../constants';
+import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
 import { AuthContext } from '../../Context/authContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import FastImage from 'react-native-fast-image';
+import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
 
 const CustomDrawerItem = ({ label, icon, iconLib, onPress }) => {
     return (
@@ -29,20 +33,20 @@ const CustomDrawerItem = ({ label, icon, iconLib, onPress }) => {
                         style={{
                             width: 25,
                             height: 25,
-                            tintColor: COLORS.black
+                            tintColor: COLORS.white
                         }}
                     /> 
                 :
                     <Icon
                         name={iconLib}
                         size={28}
-                        color={COLORS.black}
+                        color={COLORS.white}
                     />
             }
             <Text
                 style={{
                     marginLeft: 15,
-                    color: COLORS.black,
+                    color: COLORS.white,
                     ...FONTS.h3,
                     fontSize: 20
                 }}
@@ -61,15 +65,51 @@ const ProfileTab = ({ navigation }) => {
     useEffect(() => {
     }, []);
 
+    const renderHeader = () => {
+        return (
+            <Header
+                title=""
+                titleStyle={{
+                    color: COLORS.white,
+                }}
+                containerStyle={{
+                    height: 50,
+                    marginHorizontal: SIZES.base,
+                    marginTop: 0,
+                }}
+                leftComponent={
+                    <IconButton
+                        icon={icons.back}
+                        containerStyle={{
+                            width: 50,
+                            height: 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderWidth: 1,
+                            borderRadius: SIZES.radius,
+                            borderColor: COLORS.gray2
+                        }}
+                        iconStyle={{
+                            width: 30,
+                            height: 20,
+                            tintColor: COLORS.gold,
+                        }}
+                        onPress={() => navigation.goBack()}
+                    />
+                }
+                rightComponent={null}
+            />
+        )
+    }
+
     return (
-        <View
-            style={{
-                flex: 1,
-                backgroundColor: COLORS.white,
-                borderRadius: SIZES.radius,
-                paddingHorizontal: SIZES.radius,
-            }}
+        <ImageBackground 
+            source={images.background} 
+            style={{ flex : 1 }}
         >
+            <SafeAreaView>
+                {renderHeader()}
+            </SafeAreaView>
             <TouchableOpacity
                 style={{
                     flexDirection: 'row',
@@ -79,20 +119,30 @@ const ProfileTab = ({ navigation }) => {
                 }}
                 onPress={() => { 
                     if (userInfo?.user?.id) { 
-                        navigation.push("Profile", { user_id: userInfo?.user?.id }) 
+                        navigation.push("Home") 
                     } else {
                         navigation.push("SignInInit");
                     } 
                 }}
             >
-                <Image
-                    source={{uri: userInfo.user?.profile_pic ? userInfo.user?.profile_pic : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"}}
+                <View 
                     style={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: SIZES.radius
+                        borderWidth: 1,
+                        borderColor: COLORS.gray2,
+                        borderRadius: SIZES.radius,
+                        overflow: 'hidden',
                     }}
-                />
+                >
+                    <FastImage 
+                        source={{ priority: FastImage.priority.high, uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" }}
+                        style={{
+                            width: 100,
+                            height: 100,
+                        }}
+                        resizeMode={FastImage.resizeMode.contain}
+                    />
+                </View>
+               
                 <View
                     style={{
                         marginLeft: SIZES.radius
@@ -121,14 +171,14 @@ const ProfileTab = ({ navigation }) => {
                     marginTop: SIZES.padding
                 }}
             >
-                <CustomDrawerItem
+                {/* <CustomDrawerItem
                     label={'How it works?'}
                     iconLib={'help-outline'} 
                     onPress={() => { 
                         navigation.push("Faq"); 
                     }}
-                />
-                <CustomDrawerItem
+                /> */}
+                {/* <CustomDrawerItem
                     label={'My email'}
                     iconLib={'alternate-email'}
                     onPress={() => { 
@@ -138,12 +188,12 @@ const ProfileTab = ({ navigation }) => {
                             navigation.push("SignInInit"); 
                         } 
                     }}
-                />
-                <CustomDrawerItem
+                /> */}
+                {/* <CustomDrawerItem
                     label={'Legal'}
                     iconLib={'description'}
                     onPress={() => { navigation.push("Legal"); }}
-                />
+                /> */}
                 <CustomDrawerItem
                     label={'Contact Us'}
                     iconLib={'mail-outline'}
@@ -162,15 +212,15 @@ const ProfileTab = ({ navigation }) => {
                         onPress={() => { navigation.push('SignInInit') }}
                     /> 
                 }
-                { userInfo && userInfo.user && userInfo.user.id ? 
+                {/* { userInfo && userInfo.user && userInfo.user.id ? 
                     <CustomDrawerItem
                         label={'Delete Account'}
                         icon={icons.delete_icon}
                         onPress={() => navigation.push("DelAccount")}
                     /> : null 
-                }
+                } */}
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 

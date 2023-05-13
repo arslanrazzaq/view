@@ -3,10 +3,11 @@ import {
     View,
     Text,
     StyleSheet,
-    SafeAreaView
+    SafeAreaView,
+    ImageBackground
 } from 'react-native';
 import { Header, IconButton } from '../../components';
-import { FONTS, SIZES, COLORS, icons } from '../../constants';
+import { FONTS, SIZES, COLORS, icons, images } from '../../constants';
 
 
 const ContactUs = ({ navigation }) => {
@@ -15,6 +16,9 @@ const ContactUs = ({ navigation }) => {
         return (
             <Header
                 title="Contact Us"
+                titleStyle={{
+                    color: COLORS.white,
+                }}
                 containerStyle={{
                     height: 50,
                     marginHorizontal: SIZES.base,
@@ -35,7 +39,7 @@ const ContactUs = ({ navigation }) => {
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.gray,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -46,13 +50,11 @@ const ContactUs = ({ navigation }) => {
     }
 
     return (
-        <View
-            style={{
-                flex: 1,
-                backgroundColor: COLORS.white
-            }}
+        <ImageBackground
+            source={images.background} 
+            style={{ flex : 1 }}
         >
-            <SafeAreaView style={{ backgroundColor: COLORS.white }}>
+            <SafeAreaView>
                 { renderHeader() }
             </SafeAreaView>
             <View
@@ -65,7 +67,7 @@ const ContactUs = ({ navigation }) => {
             >
                 <Text
                     style={{
-                        color: COLORS.black,
+                        color: COLORS.white,
                         ...FONTS.body2,
                         paddingBottom: SIZES.radius
                     }}
@@ -74,14 +76,14 @@ const ContactUs = ({ navigation }) => {
                 </Text>
                 <Text
                     style={{
-                        color: COLORS.black,
+                        color: COLORS.white,
                         ...FONTS.body3
                     }}
                 >
-                    admin@lunahunt.com
+                    admin@solidcircle.tech
                 </Text>
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 

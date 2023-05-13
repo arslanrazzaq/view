@@ -225,6 +225,7 @@ const Home = ({ navigation }) => {
                             // navigation.dispatch(DrawerActions.openDrawer())
                             //  navigation.openDrawer()       
                             //logout(navigation)
+                            navigation.push('ProfileTab');
                         }}
                     />
                 }

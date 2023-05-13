@@ -39,6 +39,7 @@ import {
     // DailyContestInit,
     // DailyContestChoosePhotos,
     MainLayout,
+    ProfileTab,
     Polygon
 } from '../screens';
 import { AuthContext } from "../Context/authContext";
@@ -115,6 +116,10 @@ const Navigator = () => {
                         <Stack.Screen
                             name="ContactUs"
                             component={ContactUs}
+                        />
+                         <Stack.Screen
+                            name="ProfileTab"
+                            component={ProfileTab}
                         />
                 
                         
