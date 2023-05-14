@@ -383,7 +383,7 @@ const SignInInit = ({ navigation, route }) => {
                         </Text>
                         <TouchableOpacity
                             onPress={() => { 
-                            //    Linking.openURL(`https://www.lunahunt.com/legal`); 
+                               Linking.openURL(`http://solidcircle.tech/privacy`); 
                             }}
                         >
                             <Text 

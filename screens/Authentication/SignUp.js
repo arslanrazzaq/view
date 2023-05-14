@@ -365,7 +365,7 @@ const SignUp = ({ navigation }) => {
                             By using our service, you agree to our
                         </Text>
                         <TouchableOpacity
-                            onPress={() => { Linking.openURL('https://www.lunahunt.com/legal') }}
+                            onPress={() => { Linking.openURL('http://solidcircle.tech/privacy') }}
                         >
                             <Text 
                                 style={{

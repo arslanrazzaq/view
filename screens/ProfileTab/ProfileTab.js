@@ -4,6 +4,7 @@ import {
     Text,
     TouchableOpacity,
     Image,
+    Linking,
     ImageBackground,
     SafeAreaView
 } from 'react-native';
@@ -189,11 +190,11 @@ const ProfileTab = ({ navigation }) => {
                         } 
                     }}
                 /> */}
-                {/* <CustomDrawerItem
-                    label={'Legal'}
+                <CustomDrawerItem
+                    label={'Privacy Policy'}
                     iconLib={'description'}
-                    onPress={() => { navigation.push("Legal"); }}
-                /> */}
+                    onPress={() => { Linking.openURL(`http://solidcircle.tech/privacy`); }}
+                />
                 <CustomDrawerItem
                     label={'Contact Us'}
                     iconLib={'mail-outline'}
