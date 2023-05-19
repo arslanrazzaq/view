@@ -7,11 +7,14 @@ import {
     Text,
     ImageBackground,
     ActivityIndicator,
+    TouchableOpacity,
+    TouchableWithoutFeedback
 } from 'react-native';
 import Video from 'react-native-video';
 import { BASE_URL } from '../../config';
 import { images } from '../../constants';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ViewVideo = props => {
 
@@ -37,6 +40,7 @@ const ViewVideo = props => {
 
     useEffect(() => {
         setPaused(list.map((_, index) => index !== selectedIndex));
+        console.log(selectedIndex);
     }, [list, selectedIndex]);
 
     useEffect(() => {
@@ -63,9 +67,9 @@ const ViewVideo = props => {
     }
 
     return (
-        <ImageBackground 
-            source={images.background} 
-            style={{ flex : 1 }}
+        <ImageBackground
+            source={images.background}
+            style={{ flex: 1 }}
         >
             {
                 isLoading ?
@@ -73,74 +77,100 @@ const ViewVideo = props => {
                         <ActivityIndicator />
                     </View>
                     : <FlatList
-                    ref={refFlatList}
-                    data={list}
-                    onViewableItemsChanged={myViewableItemsChanged.current}
-                    viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
-                    keyExtractor={item => `${item.id}`}
-                    pagingEnabled
-                    horizontal={false}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ListFooterComponent={() => {
-                        return (
-                            <View
-                                style={{
-                                    flex: 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    width: window.width,
-                                    height: window.height,
-                                }}>
-                                <Text>{'No more videos yet...'}</Text>
-                            </View>
-                        );
-                    }}
-                    // onEndReachedThreshold={0.5}
-                    // onEndReached={info => {
-                    //     setPaused(list.map(() => true));
-                    // }}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <View>
-                                {buffering[index] && (
-                                    <ActivityIndicator
-                                        style={{
-                                            position: 'absolute',
-                                            top: window.height / 2 - 10,
-                                            left: window.width / 2 - 10,
-                                            zIndex: 9999,
-                                        }}
-                                        color="#fff"
-                                        size={'large'}
-                                    />
-                                )}
-                                <Video
-                                    paused={paused[index]}
-                                    onBuffer={event => {
-                                        if (buffering[index] !== event.isBuffering) {
-                                            buffering[index] = event.isBuffering;
-                                            setBuffering([...buffering]);
-                                        }
-                                    }}
-                                    onLoadStart={event => {
-                                        buffering[index] = true;
-                                        setBuffering([...buffering]);
-                                    }}
-                                    repeat={true}
+                        ref={refFlatList}
+                        data={list}
+                        onViewableItemsChanged={myViewableItemsChanged.current}
+                        viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
+                        keyExtractor={item => `${item.id}`}
+                        pagingEnabled
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        ListFooterComponent={() => {
+                            return (
+                                <View
                                     style={{
-                                        width: '100%',
-                                        backgroundColor: 'black',
-                                        height: Platform.OS === 'ios' ? window.height : window.height - 24,
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        width: window.width,
+                                        height: window.height,
+                                    }}>
+                                    <Text>{'No more videos yet...'}</Text>
+                                </View>
+                            );
+                        }}
+                        // onEndReachedThreshold={0.5}
+                        // onEndReached={info => {
+                        //     setPaused(list.map(() => true));
+                        // }}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <TouchableWithoutFeedback
+                                    onPress={() => {
+                                        console.log('clicked...');
+                                        console.log(paused);
+                                        let pauseList = paused;
+                                        pauseList[selectedIndex] = !pauseList[selectedIndex];
+                                        console.log(pauseList);
+                                        setPaused(pauseList.slice());
                                     }}
-                                    source={{ uri: item.playback_uri }}
-                                />
-                            </View>
-                        );
-                    }}
-                />
+                                >
+                                    <View>
+                                        {buffering[index] && (
+                                            <ActivityIndicator
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: window.height / 2 - 10,
+                                                    left: window.width / 2 - 10,
+                                                    zIndex: 9999,
+                                                }}
+                                                color="#fff"
+                                                size={'large'}
+                                            />
+                                        )}
+                                        {
+                                            paused[index] && (
+                                                <Icon
+                                                    name={"play"}
+                                                    size={40}
+                                                    color="#FFF"
+                                                    style={{
+                                                        position: 'absolute',
+                                                        top: window.height / 2 - 10,
+                                                        left: window.width / 2 - 10,
+                                                        zIndex: 9999,
+                                                    }}
+                                                />
+                                            )
+                                        }
+                                        <Video
+                                            paused={paused[index]}
+                                            onBuffer={event => {
+                                                if (buffering[index] !== event.isBuffering) {
+                                                    buffering[index] = event.isBuffering;
+                                                    setBuffering([...buffering]);
+                                                }
+                                            }}
+                                            onLoadStart={event => {
+                                                buffering[index] = true;
+                                                setBuffering([...buffering]);
+                                            }}
+                                            repeat={true}
+                                            style={{
+                                                width: '100%',
+                                                backgroundColor: 'black',
+                                                height: Platform.OS === 'ios' ? window.height : window.height - 24,
+                                            }}
+                                            source={{ uri: item.playback_uri }}
+                                        />
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            );
+                        }}
+                    />
             }
-            
+
         </ImageBackground>
     );
 };
