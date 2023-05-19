@@ -42,6 +42,7 @@ import VideoPlayer from "./Video/VideoPlayer";
 
 import Polygon from './Polygon/Polygon';
 import AddAccountInit from "./AddAccount/AddInitAccount";
+import ViewVideo from "./ViewVideo/ViewVideo";
 
 export {
     Navigator,
@@ -60,7 +61,7 @@ export {
     Assets,
     Asset,
     VideoPlayer,
-
+    ViewVideo,
     Polygon,
     // DelAccount,
     // DailyContest,

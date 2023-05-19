@@ -40,7 +40,8 @@ import {
     // DailyContestChoosePhotos,
     MainLayout,
     ProfileTab,
-    Polygon
+    Polygon,
+    ViewVideo
 } from '../screens';
 import { AuthContext } from "../Context/authContext";
 import { View, ActivityIndicator } from 'react-native';
@@ -84,6 +85,10 @@ const Navigator = () => {
                         <Stack.Screen
                             name="Home"
                             component={Home}
+                        />
+                        <Stack.Screen 
+                            name="ViewVideo"
+                            component={ViewVideo}
                         />
                         <Stack.Screen 
                             name="Polygon"
