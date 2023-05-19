@@ -84,7 +84,7 @@ const Navigator = () => {
                     >
                         <Stack.Screen
                             name="Home"
-                            component={Home}
+                            component={MainLayout}
                         />
                         <Stack.Screen 
                             name="ViewVideo"

@@ -13,16 +13,12 @@ import { connect } from 'react-redux';
 import { setSelectedTab } from '../stores/tab/tabActions';
 import {
     Home,
-    Winners,
-    ProfileTab
+    ViewVideo
 } from '../screens';
 import { Header, TextButton } from '../components';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../Context/authContext';
-// import AnimatedLoader from "react-native-animated-loader";
-import axios from 'axios';
-import { BASE_URL } from '../config';
 
 
 const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle }) => {
@@ -58,6 +54,16 @@ const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, inner
                         size={24}
                         color={isFocused ? COLORS.white : COLORS.black}
                     />
+                    { isFocused && <Text
+                            numberOfLines={1}
+                            style={{ 
+                                marginLeft: SIZES.base,
+                                color: COLORS.white,
+                                ...FONTS.h3
+                            }}
+                        >
+                        {label}    
+                    </Text>}
                 </Animated.View>
             </Animated.View>
         </TouchableWithoutFeedback>
@@ -81,6 +87,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
     const { userInfo } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
     const [commonError, setCommonError] = useState(false);
+    const [errorModelTwice, setErrorModelTwice] = useState(false);
 
 
     const homeFlexStyle = useAnimatedStyle(() => {
@@ -144,7 +151,6 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
     });
 
     React.useEffect(() => {
-        // console.log(navigation)
         if (route?.params?.screen) {
             handleSelectTab(route.params.screen);
         } else {
@@ -187,7 +193,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
             cartTabFlex.value = withTiming(1, { duration: 500 })
             cartTabColor.value = withTiming(COLORS.white, { duration: 500 })
         }
-        if (tab == 'ProfileTab') {
+        if (tab == 'ViewVideo') {
             flatListRef?.current?.scrollToIndex({
                 index: 3,
                 animated: false
@@ -219,72 +225,6 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                 ...drawerAnimationStyle
             }}
         >
-
-            <SafeAreaView style={{ backgroundColor: COLORS.white }}>
-                <Header
-                    containerStyle={{
-                        height: 50,
-                        paddingHorizontal: SIZES.padding,
-                        marginTop: 0,
-                        alignItems: 'center'
-                    }}
-                    title={selectedTab.toUpperCase()}
-                    leftComponent={
-                        <TouchableOpacity
-                            style={{
-                                width: 50,
-                                height: 40,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                borderWidth: 1,
-                                borderColor: COLORS.black,
-                                borderRadius: SIZES.radius
-                            }}
-                            onPress={() => navigation.openDrawer()}
-                        >
-                            <Icon
-                                name={'menu-fold'}
-                                size={28}
-                                color={COLORS.black}
-                            />
-                        </TouchableOpacity>
-                    }
-                    rightComponent={
-                        !userInfo.token ? <TouchableOpacity
-                            style={{
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                borderRadius: SIZES.radius
-                            }}
-                            onPress={() => navigation.navigate("SignInInit")}
-                        >
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    justifyContent: 'center',
-                                    width: 60,
-                                    height: 40,
-                                    borderWidth: 1,
-                                    borderColor: COLORS.gray2,
-                                    borderRadius: SIZES.radius,
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        borderRadius: SIZES.radius,
-                                        ...FONTS.body4,
-                                        fontSize: 17,
-                                        color: COLORS.darkGray,
-                                    }}
-                                >
-                                    Login
-                                </Text>
-                            </View>
-                        </TouchableOpacity> : null
-                    }
-                />
-            </SafeAreaView>
-
             <View
                 style={{
                     flex: 1
@@ -297,6 +237,94 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                     }}
                 >
                     {selectedTab == 'Home' ? <Home navigation={navigation} /> : null}
+                    {selectedTab == 'ViewVideo' ? <ViewVideo navigation={navigation} /> : null}
+                </View>
+            </View>
+            <View
+                style={{
+                    height: 60,
+                    justifyContent: 'flex-end',
+                }}
+            >
+                <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 4 }}
+                    colors={[
+                        COLORS.transparent,
+                        COLORS.lightGray1
+                    ]}
+                    style={{
+                        position: 'absolute',
+                        top: -20,
+                        left: 0,
+                        right: 0,
+                        height: 60,
+                        borderTopLeftRadius: 15,
+                        borderTopRightRadius: 15
+                    }}
+                />
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        paddingHorizontal: SIZES.radius,
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                        // borderTopLeftRadius: 20,
+                        // borderTopRightRadius: 20,
+                        backgroundColor: COLORS.white,
+                        borderTopWidth: 2,
+                        borderTopColor: COLORS.lightGray1
+                    }}
+                >
+                    <TabButton
+                        label={constants.screens.home}
+                        icon={'home'}
+                        isFocused={selectedTab == constants.screens.home}
+                        outerContainerStyle={homeFlexStyle}
+                        innerContainerStyle={homeColorStyle}
+                        onPress={() => handleSelectTab(constants.screens.home)}
+                    />
+                    {/* <TabButton
+                        label={'Search'}
+                        icon={'search1'}
+                        outerContainerStyle={notificationFlexStyle}
+                        innerContainerStyle={notificationColorStyle}
+                        isFocused={selectedTab == 'search'}
+                        onPress={() => {
+                            navigation.navigate("Search");
+                        }}
+                    /> */}
+                    {/* <TabButton
+                        label={constants.screens.search}
+                        icon={'plus'}
+                        outerContainerStyle={searchFlexStyle}
+                        innerContainerStyle={searchColorStyle}
+                        isFocused={selectedTab == constants.screens.search}
+                        onPress={() => {
+                            if (userInfo && userInfo.user && userInfo.user.id) {
+                                checkAbleToPost();
+                            } else {
+                                navigation.navigate("SignInInit");
+                            }
+                        }}
+                    /> */}
+                    {/* <TabButton
+                        label={constants.screens.cart}
+                        icon={'Trophy'}
+                        outerContainerStyle={cartFlexStyle}
+                        innerContainerStyle={cartColorStyle}
+                        isFocused={selectedTab == constants.screens.cart}
+                        onPress={() => handleSelectTab(constants.screens.cart)}
+                    /> */}
+                    <TabButton
+                        label={'View'}
+                        icon={'youtube'}
+                        outerContainerStyle={userFlexStyle}
+                        innerContainerStyle={userColorStyle}
+                        isFocused={selectedTab == 'ViewVideo'}
+                        onPress={() => handleSelectTab('ViewVideo')}
+                    />
                 </View>
             </View>
         </Animated.View>
