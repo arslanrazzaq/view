@@ -40,7 +40,6 @@ const ViewVideo = props => {
 
     useEffect(() => {
         setPaused(list.map((_, index) => index !== selectedIndex));
-        console.log(selectedIndex);
     }, [list, selectedIndex]);
 
     useEffect(() => {
@@ -82,6 +81,9 @@ const ViewVideo = props => {
                         onViewableItemsChanged={myViewableItemsChanged.current}
                         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
                         keyExtractor={item => `${item.id}`}
+                        initialNumToRender={1}
+                        maxToRenderPerBatch={1}
+                        removeClippedSubviews={true}
                         pagingEnabled
                         horizontal={false}
                         showsHorizontalScrollIndicator={false}
