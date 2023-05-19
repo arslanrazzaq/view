@@ -108,11 +108,8 @@ const ViewVideo = props => {
                             return (
                                 <TouchableWithoutFeedback
                                     onPress={() => {
-                                        console.log('clicked...');
-                                        console.log(paused);
                                         let pauseList = paused;
                                         pauseList[selectedIndex] = !pauseList[selectedIndex];
-                                        console.log(pauseList);
                                         setPaused(pauseList.slice());
                                     }}
                                 >
