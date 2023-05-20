@@ -3,10 +3,13 @@ import {
     View,
     Text,
     Alert,
+    Dimensions,
+    Image,
+    ImageBackground,
     SafeAreaView
 } from 'react-native';
 import { Header, IconButton, TextButton } from '../../components';
-import { FONTS, SIZES, COLORS, icons } from '../../constants';
+import { FONTS, SIZES, COLORS, icons, images } from '../../constants';
 import { AuthContext } from '../../Context/authContext';
 import { BASE_URL } from '../../config';
 import axios from "axios";
@@ -21,7 +24,7 @@ const DeleteAccountConfirmation = ({ navigation }) => {
     const handleDeleteUser = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.delete(`${BASE_URL}/user/delete`, { data: { id: userInfo.user.id, status: true }});
+            const response = await axios.delete(`${BASE_URL}/user/delete`, { data: { id: userInfo.user.id, status: true } });
             setIsLoading(false);
             logout();
             Alert.alert('Delete Account', `Your Account has been deleted successfully`);
@@ -60,7 +63,7 @@ const DeleteAccountConfirmation = ({ navigation }) => {
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.gray,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -71,14 +74,14 @@ const DeleteAccountConfirmation = ({ navigation }) => {
     }
 
     return (
-        <View
+        <ImageBackground
+            source={images.background}
             style={{
                 flex: 1,
-                backgroundColor: COLORS.white
             }}
         >
-            <SafeAreaView style={{ backgroundColor: COLORS.white }}>
-                { renderHeader() }
+            <SafeAreaView>
+                {renderHeader()}
             </SafeAreaView>
             <AnimatedLoader
                 visible={isLoading}
@@ -101,30 +104,32 @@ const DeleteAccountConfirmation = ({ navigation }) => {
             >
                 <Text
                     style={{
-                        color: COLORS.black,
-                        ...FONTS.h3
+                        color: COLORS.white,
+                        ...FONTS.h2
                     }}
                 >
                     Are you sure you want to
                 </Text>
                 <Text
                     style={{
-                        color: COLORS.black,
-                        ...FONTS.h3
+                        color: COLORS.white,
+                        ...FONTS.h2
                     }}
                 >
                     delete your account?
                 </Text>
-            </View>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center'
-                }}
-            >
+                <Image
+                    source={images.logo_02}
+                    resizeMode='contain'
+                    style={{
+                        height: 350,
+                        width: Dimensions.get('window').width,
+                        borderRadius: SIZES.radius,
+                        marginVertical: SIZES.padding * 2
+                    }}
+                />
                 <View
                     style={{
-                        marginHorizontal: SIZES.padding,
                         flexDirection: 'row'
                     }}
                 >
@@ -151,20 +156,18 @@ const DeleteAccountConfirmation = ({ navigation }) => {
                             flex: 1,
                             marginLeft: SIZES.base,
                             borderRadius: SIZES.radius,
-                            borderColor: SIZES.black,
-                            borderWidth: 1,
-                            backgroundColor: COLORS.white
+                            backgroundColor: COLORS.red
                         }}
                         labelStyle={{
-                            color: COLORS.black,
+                            color: COLORS.white,
                             ...FONTS.h4
                         }}
                         label={'Yes'}
-                        onPress={() => {handleDeleteUser()}}
+                        onPress={() => { handleDeleteUser() }}
                     />
                 </View>
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 

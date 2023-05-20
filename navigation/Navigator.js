@@ -7,7 +7,7 @@ import {
     SignUp,
     ForgotPassword,
     // Otp,
-    // DelAccount,
+    DelAccount,
     // Faq,
     // Profile,
     // Paypal,
@@ -29,8 +29,8 @@ import {
     // SelectDOB,
     // SelectNationality,
     // EditProfile,
-    // DeleteAccount,
-    // DeleteAccountConfirmation,
+    DeleteAccount,
+    DeleteAccountConfirmation,
     ChangePassword,
     // DailyContest,
     // DailyContestStep1,
@@ -126,7 +126,18 @@ const Navigator = () => {
                             name="ProfileTab"
                             component={ProfileTab}
                         />
-                
+                        <Stack.Screen
+                            name="DeleteAccount"
+                            component={DeleteAccount}
+                        />
+                        {/* <Stack.Screen
+                            name="DelAccount"
+                            component={DelAccount}
+                        /> */}
+                        <Stack.Screen
+                            name="DeleteAccountConfirmation"
+                            component={DeleteAccountConfirmation}
+                        />
                         
             
                         {/* <Stack.Screen
@@ -181,18 +192,7 @@ const Navigator = () => {
                             name="Faq"
                             component={Faq}
                         />
-                        <Stack.Screen
-                            name="DeleteAccount"
-                            component={DeleteAccount}
-                        />
-                        <Stack.Screen
-                            name="DelAccount"
-                            component={DelAccount}
-                        />
-                        <Stack.Screen
-                            name="DeleteAccountConfirmation"
-                            component={DeleteAccountConfirmation}
-                        />
+                        
                         <Stack.Screen
                             name="Profile"
                             component={Profile}

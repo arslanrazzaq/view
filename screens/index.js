@@ -20,10 +20,10 @@ import ContactUs from "./ContactUs/ContactUs";
 // import Post from "./Post/Post";
 import SignInInit from "./Authentication/SignInInit";
 // import EditProfile from "./Profile/EditProfile";
-// import DeleteAccount from "./DeleteAccount/DeleteAccount";
-// import DeleteAccountConfirmation from "./DeleteAccount/DeleteAccountConfirmation";
+import DeleteAccount from "./DeleteAccount/DeleteAccount";
+import DeleteAccountConfirmation from "./DeleteAccount/DeleteAccountConfirmation";
 import ChangePassword from "./Authentication/ChangePassword";
-// import DelAccount from "./DeleteAccount/DelAccount";
+import DelAccount from "./DeleteAccount/DelAccount";
 // import DailyContestInit from "./DailyContest/DailyContestInit";
 // import DailyContestStep1 from "./DailyContest/DailyContestStep1";
 // import DailyContestStep2 from "./DailyContest/DailyContestStep2";
@@ -74,8 +74,8 @@ export {
     // SelectDOB,
     // SelectNationality,
     // EditProfile,
-    // DeleteAccount,
-    // DeleteAccountConfirmation,
+    DeleteAccount,
+    DeleteAccountConfirmation,
     ChangePassword,
     // DailyContestInit,
     // Faq,

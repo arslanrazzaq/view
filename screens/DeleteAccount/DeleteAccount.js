@@ -2,10 +2,13 @@ import React, { useState, useContext, useEffect } from 'react';
 import {
     View,
     Text,
-    SafeAreaView
+    SafeAreaView,
+    Image,
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 import { Header, IconButton, TextButton } from '../../components';
-import { FONTS, SIZES, COLORS, icons } from '../../constants';
+import { FONTS, SIZES, COLORS, icons, images } from '../../constants';
 
 
 const DeleteAccount = ({ navigation }) => {
@@ -34,7 +37,7 @@ const DeleteAccount = ({ navigation }) => {
                         iconStyle={{
                             width: 30,
                             height: 20,
-                            tintColor: COLORS.gray,
+                            tintColor: COLORS.gold,
                         }}
                         onPress={() => navigation.goBack()}
                     />
@@ -45,14 +48,14 @@ const DeleteAccount = ({ navigation }) => {
     }
 
     return (
-        <View
+        <ImageBackground
+            source={images.background}
             style={{
-                flex: 1,
-                backgroundColor: COLORS.white
+                flex: 1
             }}
         >
-            <SafeAreaView style={{ backgroundColor: COLORS.white }}>
-                { renderHeader() }
+            <SafeAreaView>
+                {renderHeader()}
             </SafeAreaView>
             <View
                 style={{
@@ -65,23 +68,25 @@ const DeleteAccount = ({ navigation }) => {
             >
                 <Text
                     style={{
-                        color: COLORS.black,
-                        ...FONTS.h2
+                        color: COLORS.white,
+                        ...FONTS.h2,
                     }}
                 >
                     Delete My Account
                 </Text>
-            </View>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center'
-                }}
-            >
+                <Image
+                    source={images.logo_02}
+                    resizeMode='contain'
+                    style={{
+                        height: 350,
+                        width: Dimensions.get('window').width,
+                        borderRadius: SIZES.radius,
+                        marginVertical: SIZES.padding * 2
+                    }}
+                />
                 <View
                     style={{
-                        marginHorizontal: SIZES.padding,
-                        flexDirection: 'row'
+                        flexDirection: 'row',
                     }}
                 >
                     <TextButton
@@ -90,8 +95,8 @@ const DeleteAccount = ({ navigation }) => {
                             flex: 1,
                             marginLeft: SIZES.base,
                             borderRadius: SIZES.radius,
-                            borderColor: SIZES.black,
-                            borderWidth: 1,
+                            // borderColor: SIZES.black,
+                            // borderWidth: 1,
                             backgroundColor: COLORS.white
                         }}
                         labelStyle={{
@@ -107,12 +112,12 @@ const DeleteAccount = ({ navigation }) => {
                             flex: 1,
                             marginLeft: SIZES.base,
                             borderRadius: SIZES.radius,
-                            borderColor: SIZES.black,
-                            borderWidth: 1,
-                            backgroundColor: COLORS.white
+                            // borderColor: SIZES.red,
+                            // borderWidth: 1,
+                            backgroundColor: COLORS.red
                         }}
                         labelStyle={{
-                            color: COLORS.black,
+                            color: COLORS.white,
                             ...FONTS.h4
                         }}
                         label={'Yes'}
@@ -120,7 +125,8 @@ const DeleteAccount = ({ navigation }) => {
                     />
                 </View>
             </View>
-        </View>
+
+        </ImageBackground>
     )
 }
 

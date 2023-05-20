@@ -213,13 +213,13 @@ const ProfileTab = ({ navigation }) => {
                         onPress={() => { navigation.push('SignInInit') }}
                     /> 
                 }
-                {/* { userInfo && userInfo.user && userInfo.user.id ? 
+                { userInfo && userInfo.user && userInfo.user.id ? 
                     <CustomDrawerItem
                         label={'Delete Account'}
                         icon={icons.delete_icon}
-                        onPress={() => navigation.push("DelAccount")}
+                        onPress={() => navigation.push("DeleteAccount")}
                     /> : null 
-                } */}
+                }
             </View>
         </ImageBackground>
     )
