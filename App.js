@@ -97,7 +97,7 @@
 // export default App;
 
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SplashScreen from 'react-native-splash-screen';
 import { AuthProvider } from "./Context/authContext";
 import {
@@ -126,14 +126,24 @@ const store = createStore(
 
 const App = () => {
 
+  const [isTime, setIsTime] = useState(false);
+
   useEffect(() => {
     SplashScreen.hide();
+    setTimeout(() => {
+      setIsTime(true);        
+  }, 500);
+
   }, []);
 
   return (
     <AuthProvider>
       <Provider store={store}>
-        <Navigator />
+      {   
+        isTime ?
+          <Navigator />
+          : null
+      }
       </Provider>
     </AuthProvider>
   )

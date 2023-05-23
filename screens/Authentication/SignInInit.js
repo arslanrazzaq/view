@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import {
     View,
     Text,
@@ -21,6 +21,8 @@ import { appleAuth } from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as Keychain from 'react-native-keychain';
+import { useWeb3Modal } from '@web3modal/react-native';
+import { ethers } from 'ethers';
 
 const SignInInit = ({ navigation, route }) => {
 
@@ -29,6 +31,8 @@ const SignInInit = ({ navigation, route }) => {
     const [isSelected, setIsSelected] = useState(true);
 
     const { userInfo, login } = useContext(AuthContext);
+
+    const { open, isConnected, provider } = useWeb3Modal();
 
     const isEnabledSignIn = () => {
         return isSelected
@@ -44,11 +48,59 @@ const SignInInit = ({ navigation, route }) => {
     //     return unsubscribe;
     // }, [navigation]);
 
+    const web3Provider = useMemo(
+        () => (provider ? new ethers.providers.Web3Provider(provider) : undefined),
+        [provider]
+    );
+
     useEffect(() => {
         GoogleSignin.configure({
             webClientId: Platform.OS == 'ios' ? '662268974133-g820ucosmhbei9l40cg3ub9oh7nah5em.apps.googleusercontent.com' : '662268974133-n7jit2sgfk446mpgp2rai0t8p8iar5r9.apps.googleusercontent.com'
         });
     }, []);
+
+    useEffect(() => {
+        addr();
+    }, [isConnected]);
+
+    const addr = async () => {
+        // console.log(web3Provider.getSigner)
+        if (isConnected) {
+            try {
+                setIsLoading(true);
+                const signer = web3Provider.getSigner();
+                const address = await signer.getAddress();
+                try {
+                    const response = await axios.post(`${BASE_URL}/user/social/login`, {
+                        email: address,
+                        firstName: '',
+                        lastName: '',
+                        profileImage: '',
+                        username: address,
+                        token: address,
+                        type: 'WalletConnect',
+                        role: 'user'
+                    });
+                    setIsLoading(false);
+                    login(response.data.token, response.data.user);
+                } catch (error) {
+                    console.log('error comes:', error);
+                    if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+                        setCommonError(error.response.data.msg);
+                        setIsLoading(false);
+                    } else {
+                        setCommonError('Unknown Error, Try again later');
+                        setIsLoading(false);
+                    }
+                }
+            } catch (error) {
+                console.log('error comes:', error);
+                // some other error happened
+                setCommonError('Unknown error from WalletConnet, Try again later');
+                setIsLoading(false);
+            }
+        }
+    }
 
     const googlelogin = async () => {
         try {
@@ -322,6 +374,25 @@ const SignInInit = ({ navigation, route }) => {
                             navigation.navigate("SignIn");
                         } 
                     }}
+                />
+                <TextButton 
+                    label={isConnected ? "View Account" : "Continue With Wallet Connect"}
+                    disabled={isEnabledSignIn() ? false : true }
+                    buttonContainerStyle={{
+                        height: 50,
+                        alignItems: 'center',
+                        marginTop: SIZES.padding,
+                        borderRadius: SIZES.radius,
+                        backgroundColor: isEnabledSignIn() ? COLORS.blueTwitter : COLORS.transparentPrimary 
+                    }}
+                    // onPress={() => { 
+                    //     if (route.params && route.params.navigateTo) { 
+                    //         navigation.navigate("SignIn", { navigateTo: route.params.navigateTo });
+                    //     } else {
+                    //         navigation.navigate("SignIn");
+                    //     } 
+                    // }}
+                    onPress={open}
                 />
                 <View
                     style={{ 
