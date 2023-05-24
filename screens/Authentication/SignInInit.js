@@ -48,10 +48,10 @@ const SignInInit = ({ navigation, route }) => {
     //     return unsubscribe;
     // }, [navigation]);
 
-    const web3Provider = useMemo(
-        () => (provider ? new ethers.providers.Web3Provider(provider) : undefined),
-        [provider]
-    );
+    // const web3Provider = useMemo(
+    //     () => (provider ? new ethers.providers.Web3Provider(provider) : undefined),
+    //     [provider]
+    // );
 
     useEffect(() => {
         GoogleSignin.configure({
@@ -59,48 +59,48 @@ const SignInInit = ({ navigation, route }) => {
         });
     }, []);
 
-    useEffect(() => {
-        addr();
-    }, [isConnected]);
+    // useEffect(() => {
+    //     addr();
+    // }, [isConnected]);
 
-    const addr = async () => {
-        // console.log(web3Provider.getSigner)
-        if (isConnected) {
-            try {
-                setIsLoading(true);
-                const signer = web3Provider.getSigner();
-                const address = await signer.getAddress();
-                try {
-                    const response = await axios.post(`${BASE_URL}/user/social/login`, {
-                        email: address,
-                        firstName: '',
-                        lastName: '',
-                        profileImage: '',
-                        username: address,
-                        token: address,
-                        type: 'WalletConnect',
-                        role: 'user'
-                    });
-                    setIsLoading(false);
-                    login(response.data.token, response.data.user);
-                } catch (error) {
-                    console.log('error comes:', error);
-                    if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-                        setCommonError(error.response.data.msg);
-                        setIsLoading(false);
-                    } else {
-                        setCommonError('Unknown Error, Try again later');
-                        setIsLoading(false);
-                    }
-                }
-            } catch (error) {
-                console.log('error comes:', error);
-                // some other error happened
-                setCommonError('Unknown error from WalletConnet, Try again later');
-                setIsLoading(false);
-            }
-        }
-    }
+    // const addr = async () => {
+    //     // console.log(web3Provider.getSigner)
+    //     if (isConnected) {
+    //         try {
+    //             setIsLoading(true);
+    //             const signer = web3Provider.getSigner();
+    //             const address = await signer.getAddress();
+    //             try {
+    //                 const response = await axios.post(`${BASE_URL}/user/social/login`, {
+    //                     email: address,
+    //                     firstName: '',
+    //                     lastName: '',
+    //                     profileImage: '',
+    //                     username: address,
+    //                     token: address,
+    //                     type: 'WalletConnect',
+    //                     role: 'user'
+    //                 });
+    //                 setIsLoading(false);
+    //                 login(response.data.token, response.data.user);
+    //             } catch (error) {
+    //                 console.log('error comes:', error);
+    //                 if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
+    //                     setCommonError(error.response.data.msg);
+    //                     setIsLoading(false);
+    //                 } else {
+    //                     setCommonError('Unknown Error, Try again later');
+    //                     setIsLoading(false);
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             console.log('error comes:', error);
+    //             // some other error happened
+    //             setCommonError('Unknown error from WalletConnet, Try again later');
+    //             setIsLoading(false);
+    //         }
+    //     }
+    // }
 
     const googlelogin = async () => {
         try {
@@ -375,7 +375,7 @@ const SignInInit = ({ navigation, route }) => {
                         } 
                     }}
                 />
-                <TextButton 
+                {/* <TextButton 
                     label={isConnected ? "View Account" : "Continue With Wallet Connect"}
                     disabled={isEnabledSignIn() ? false : true }
                     buttonContainerStyle={{
@@ -384,7 +384,7 @@ const SignInInit = ({ navigation, route }) => {
                         marginTop: SIZES.padding,
                         borderRadius: SIZES.radius,
                         backgroundColor: isEnabledSignIn() ? COLORS.blueTwitter : COLORS.transparentPrimary 
-                    }}
+                    }} 
                     // onPress={() => { 
                     //     if (route.params && route.params.navigateTo) { 
                     //         navigation.navigate("SignIn", { navigateTo: route.params.navigateTo });
@@ -393,7 +393,8 @@ const SignInInit = ({ navigation, route }) => {
                     //     } 
                     // }}
                     onPress={open}
-                />
+                /> 
+                */}
                 <View
                     style={{ 
                         flexDirection: 'row',

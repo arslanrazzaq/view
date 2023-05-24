@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import {
     View,
     Text,
@@ -13,6 +13,7 @@ import { AuthContext } from '../../Context/authContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
+import { useWeb3Modal } from '@web3modal/react-native';
 
 const CustomDrawerItem = ({ label, icon, iconLib, onPress }) => {
     return (
@@ -62,7 +63,9 @@ const ProfileTab = ({ navigation }) => {
 
 
     const { userInfo, logout } = useContext(AuthContext);
-    
+
+    const { open, isConnected, provider } = useWeb3Modal();
+
     useEffect(() => {
     }, []);
 
@@ -190,6 +193,11 @@ const ProfileTab = ({ navigation }) => {
                         } 
                     }}
                 /> */}
+                <CustomDrawerItem
+                    label={isConnected ? "View Account" : "Connect Wallet"}
+                    iconLib={'account-balance-wallet'}
+                    onPress={open}
+                />
                 <CustomDrawerItem
                     label={'Privacy Policy'}
                     iconLib={'description'}

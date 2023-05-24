@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState, useMemo } from 'react';
 import { Platform, StatusBar } from 'react-native';
 import * as Keychain from 'react-native-keychain';
 import { Web3Modal, useWeb3Modal } from '@web3modal/react-native';
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
 
 const projectId = '140577ad27b8d39b4c4048984391e380';
 
@@ -21,10 +21,10 @@ export const AuthProvider = ({ children }) => {
     const [isStatusBarHidden, setIsStatusBarHiddenS] = useState(false);
     const [isLoadingContext, setIsLoadingContext] = useState(false);
 
-    const web3Provider = useMemo(
-        () => (provider ? new ethers.providers.Web3Provider(provider) : undefined),
-        [provider]
-    );
+    // const web3Provider = useMemo(
+    //     () => (provider ? new ethers.providers.Web3Provider(provider) : undefined),
+    //     [provider]
+    // );
 
     const { isConnected, provider } = useWeb3Modal();
    
@@ -45,8 +45,10 @@ export const AuthProvider = ({ children }) => {
             //navigation.push('SignInInit');
         //}
         setUserInfo({});
-        await provider.abortPairingAttempt();
-        await provider.disconnect();
+        if (isConnected) {
+            await provider.abortPairingAttempt();
+            await provider.disconnect();
+        }
         setIsLoadingContext(false);
     };
 
@@ -59,14 +61,16 @@ export const AuthProvider = ({ children }) => {
                 let reCredentials = { token: credentials.username, user: JSON.parse(credentials.password), isLoggedIn: true };
                 setUserInfo(reCredentials);
                 setIsLoadingContext(false);
-            } else if (isConnected) {
-                console.log('here: ', isConnected);
-                const signer = web3Provider.getSigner();
-                const address = await signer.getAddress();
-                let reCredentials = { token: 'WalletConnect', user: { id: address }, isLoggedIn: true };
-                setUserInfo(reCredentials);
-                setIsLoadingContext(false);
-            } else {
+            }
+            //  else if (isConnected) {
+            //     console.log('here: ', isConnected);
+            //     const signer = web3Provider.getSigner();
+            //     const address = await signer.getAddress();
+            //     let reCredentials = { token: 'WalletConnect', user: { id: address }, isLoggedIn: true };
+            //     setUserInfo(reCredentials);
+            //     setIsLoadingContext(false);
+            // } 
+            else {
                 setUserInfo({ token: null, user: {}, isLoggedIn: false });
                 setIsLoadingContext(false);
             }
