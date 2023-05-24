@@ -13,6 +13,7 @@ import { FONTS, SIZES, COLORS, icons, images } from '../../constants';
 import axios from 'axios';
 import { BASE_URL } from '../../config';
 import { AuthContext } from '../../Context/authContext';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 const AddAccount = ({ navigation, route }) => {
@@ -116,78 +117,92 @@ const AddAccount = ({ navigation, route }) => {
                     alignItems: 'center'
                 }}
             >
-                <Image
-                    source={images.logo_02}
-                    resizeMode='contain'
-                    style={{
-                        height: 250,
-                        width: 250,
-                        borderRadius: SIZES.radius,
-                        marginBottom: SIZES.padding 
-                    }}
-                />
-                {   
-                    accountType == 'PROTON' ?
-                        <Text
-                            style={{
-                                color: COLORS.white,
-                                ...FONTS.body3,
-                                alignSelf: 'center'
-                            }}
-                        >
-                            Add a PROTON account below to get started. Only enter your account name. No public or private keys are needed to track your accounts.
-                        </Text>
-                    :
-                        <Text
-                            style={{
-                                color: COLORS.white,
-                                ...FONTS.body3,
-                                alignSelf: 'center'
-                            }}
-                        >
-                            Add a POLYGON account below to get started. Only enter your account hash address. No public or private keys are needed to track your accounts.
-                        </Text>
-                }
-                <FormInput 
-                    label=""
-                    containerStyle={{
-                        marginTop: SIZES.radius,
-                    }}
-                    inputContainerStyle={{
-                        paddingHorizontal: SIZES.radius,
-                        width: '100%'
-                    }}
-                    value={accountName}
-                    onChange={(value) => {
-                        setAccountName(value);
-                    }}
-                    placeholder={accountType == 'PROTON' ? `PROTON account name` : `POLYGON account hash address`}
-                />
-                <TextButton
-                    label="Add Account"
-                    disabled={isEnabledSignIn() ? false : true }
-                    buttonContainerStyle={{
-                        height: 55,
-                        alignItems: 'center',
-                        marginTop: SIZES.padding,
-                        borderRadius: SIZES.radius,
-                        backgroundColor: isEnabledSignIn() ? COLORS.primary : COLORS.transparentPrimary,
+                <KeyboardAwareScrollView
+                    keyboardDismissMode="on-drag"
+                    contentContainerStyle={{
+                        flex: 1,
                         paddingHorizontal: SIZES.padding,
-                        alignSelf: 'center'
+                        justifyContent: 'center',
+                        alignItems: 'center'
                     }}
-                    onPress={() => handleAccountAdd()}
-                />
-                {   commonError ? <Text 
+                    enableOnAndroid={true}
+                    enableAutomaticScroll={Platform.OS === 'ios'}
+                    keyboardShouldPersistTaps={"handled"}
+                    enableResetScrollToCoords={false}
+                >
+                    <Image
+                        source={images.logo_02}
+                        resizeMode='contain'
                         style={{
-                            color: COLORS.red,
-                            ...FONTS.body4,
-                            marginTop: SIZES.base,
-                            textAlign: 'center'
+                            height: 250,
+                            width: 250,
+                            borderRadius: SIZES.radius,
+                            marginBottom: SIZES.padding 
                         }}
-                    >
-                        {commonError}
-                    </Text> : null
-                }
+                    />
+                    {   
+                        accountType == 'PROTON' ?
+                            <Text
+                                style={{
+                                    color: COLORS.white,
+                                    ...FONTS.body3,
+                                    alignSelf: 'center'
+                                }}
+                            >
+                                Add a PROTON account below to get started. Only enter your account name. No public or private keys are needed to track your accounts.
+                            </Text>
+                        :
+                            <Text
+                                style={{
+                                    color: COLORS.white,
+                                    ...FONTS.body3,
+                                    alignSelf: 'center'
+                                }}
+                            >
+                                Add a POLYGON account below to get started. Only enter your account hash address. No public or private keys are needed to track your accounts.
+                            </Text>
+                    }
+                    <FormInput 
+                        label=""
+                        containerStyle={{
+                            marginTop: SIZES.radius,
+                        }}
+                        inputContainerStyle={{
+                            paddingHorizontal: SIZES.radius,
+                            width: '100%'
+                        }}
+                        value={accountName}
+                        onChange={(value) => {
+                            setAccountName(value);
+                        }}
+                        placeholder={accountType == 'PROTON' ? `PROTON account name` : `POLYGON account hash address`}
+                    />
+                    <TextButton
+                        label="Add Account"
+                        disabled={isEnabledSignIn() ? false : true }
+                        buttonContainerStyle={{
+                            height: 55,
+                            alignItems: 'center',
+                            marginTop: SIZES.padding,
+                            borderRadius: SIZES.radius,
+                            backgroundColor: isEnabledSignIn() ? COLORS.primary : COLORS.transparentPrimary,
+                            paddingHorizontal: SIZES.padding,
+                            alignSelf: 'center'
+                        }}
+                        onPress={() => handleAccountAdd()}
+                    />
+                    {   commonError ? <Text 
+                            style={{
+                                color: COLORS.red,
+                                ...FONTS.body4,
+                                marginTop: SIZES.base,
+                                textAlign: 'center'
+                            }}
+                        >
+                            {commonError}
+                        </Text> : null
+                    }
+                </KeyboardAwareScrollView>
             </View>
         </ImageBackground>
     )
