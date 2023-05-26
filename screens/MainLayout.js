@@ -13,7 +13,8 @@ import { connect } from 'react-redux';
 import { setSelectedTab } from '../stores/tab/tabActions';
 import {
     Home,
-    ViewVideo
+    ViewVideo,
+    Channels
 } from '../screens';
 import { Header, TextButton } from '../components';
 import LinearGradient from 'react-native-linear-gradient';
@@ -242,7 +243,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                     }}
                 >
                     {selectedTab == 'Home' ? <Home navigation={navigation} /> : null}
-                    {selectedTab == 'ViewVideo' ? <ViewVideo navigation={navigation} /> : null}
+                    {selectedTab == 'ViewVideo' ? <Channels navigation={navigation} /> : null}
                 </View>
             </View>
             <View

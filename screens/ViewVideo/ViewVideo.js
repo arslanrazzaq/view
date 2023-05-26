@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 import { BASE_URL } from '../../config';
-import { images } from '../../constants';
+import { images, icons, SIZES, COLORS } from '../../constants';
+import { IconButton } from '../../components';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
-const ViewVideo = props => {
+const ViewVideo = ({ navigation, route }) => {
 
     const window = useWindowDimensions();
 
@@ -50,7 +51,7 @@ const ViewVideo = props => {
         setIsLoading(true);
         setList([]);
         try {
-            const response = await axios.get(`${BASE_URL}/theta/videos/list`);
+            const response = await axios.get(`${BASE_URL}/theta/videos/list/${encodeURIComponent(route.params.data)}`);
             setIsLoading(false);
             setList(response.data.data);
         } catch (error) {
@@ -70,6 +71,34 @@ const ViewVideo = props => {
             source={images.background}
             style={{ flex: 1 }}
         >
+            <View
+                style={{
+                    position: 'absolute',
+                    top: 70,
+                    left: 20,
+                    zIndex: 3, // works on ios
+                    elevation: 3, // works on android
+                }}
+            >
+                <IconButton
+                    icon={icons.back}
+                    containerStyle={{
+                        width: 40,
+                        height: 40,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderWidth: 1,
+                        borderRadius: SIZES.radius,
+                        borderColor: COLORS.white
+                    }}
+                    iconStyle={{
+                        width: 30,
+                        height: 20,
+                        tintColor: COLORS.gold,
+                    }}
+                    onPress={() => navigation.goBack()}
+                />
+            </View>
             {
                 isLoading ?
                     <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
