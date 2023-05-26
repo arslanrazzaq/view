@@ -138,11 +138,11 @@ const ViewVideo = ({ navigation, route }) => {
                         renderItem={({ item, index }) => {
                             return (
                                 <TouchableWithoutFeedback
-                                    onPress={() => {
-                                        let pauseList = paused;
-                                        pauseList[selectedIndex] = !pauseList[selectedIndex];
-                                        setPaused(pauseList.slice());
-                                    }}
+                                    // onPress={() => {
+                                    //     let pauseList = paused;
+                                    //     pauseList[selectedIndex] = !pauseList[selectedIndex];
+                                    //     setPaused(pauseList.slice());
+                                    // }}
                                 >
                                     <View>
                                         {buffering[index] && (
@@ -185,6 +185,7 @@ const ViewVideo = ({ navigation, route }) => {
                                                 setBuffering([...buffering]);
                                             }}
                                             repeat={true}
+                                            controls={true}
                                             style={{
                                                 width: '100%',
                                                 backgroundColor: 'black',
