@@ -18,19 +18,16 @@ import ViewIconSvg from '../../assets/svgs/view-svg2.svg';
 const Channels = ({ navigation }) => {
 
     const [collectionList, setCollectionList] = useState([
-        'Culture Dapp',
-        'View',
-        'Animation',
-        'Just-Ice',
-        'EBS_Ddot',
-        'Earn Your Leisure',
-        'Block Reports',
-        'Jastin Martin',
-        'Dub Digital',
-        "Gracie's Corner",
-        'BrandMan Network',
-        "Godbody University",
-        "The 2nd"
+       { name: 'Just-Ice', image: 'justIce' },
+       { name: 'EBS_Ddot', image: 'ebsDdot' },
+       { name: 'Earn Your Leisure', image: 'earn' },
+       { name: 'Block Reports', image: 'blockReports' },
+       { name: 'Jastin Martin', image: 'justinMartin' },
+       { name: 'Dub Digital', image: 'dubDigital' },
+       { name: "Gracie's Corner", image: 'gracies' },
+       { name: "The 2nd", image: 'the2nd' }, 
+       { name: 'BrandMan Network', image: 'brandman' },
+       { name: "Godbody University", image: 'godBody' }
     ]);
    
     const { userInfo, logout } = useContext(AuthContext);
@@ -99,7 +96,7 @@ const Channels = ({ navigation }) => {
             <FlashList
                 key={1}
                 data={collectionList}
-                keyExtractor={x => `_${x}`}
+                keyExtractor={x => `_${x.name}`}
                 horizontal={false}
                 showsVerticalScrollIndicator={false}
                 numColumns={2}
@@ -122,7 +119,7 @@ const Channels = ({ navigation }) => {
                             }}
                         >
                             <TouchableWithoutFeedback
-                                onPress={() => navigation.push('ViewVideo', { data: item })}
+                                onPress={() => navigation.push('ViewVideo', { data: item.name })}
                             >
                                 <View
                                     style={{
@@ -132,11 +129,7 @@ const Channels = ({ navigation }) => {
                                     }}
                                 >
                                     <FastImage
-                                        source={{  
-                                        // uri: item.immutable_data.image.startsWith("https://") ? `${item.immutable_data.image}` : `https://solidcircle.mypinata.cloud/ipfs/${item.immutable_data.image}`,
-                                            uri:  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
-                                            priority: FastImage.priority.high 
-                                        }}
+                                        source={images[item.image]}
                                         resizeMode={FastImage.resizeMode.cover}
                                         style={{
                                             height: 200,
@@ -165,7 +158,7 @@ const Channels = ({ navigation }) => {
                                         flex: 1
                                     }}
                                 >
-                                    {`${item}`}
+                                    {`${item.name}`}
                                 </Text>
                             </View>
                         </View>

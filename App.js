@@ -132,7 +132,7 @@ const App = () => {
     SplashScreen.hide();
     setTimeout(() => {
       setIsTime(true);        
-  }, 500);
+  }, 100);
 
   }, []);
 
