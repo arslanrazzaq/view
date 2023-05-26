@@ -19,6 +19,8 @@ import { Header, TextButton } from '../components';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../Context/authContext';
+import CliptoIcon from '../assets/svgs/cliptos-svg2.svg';
+import ViewIcon from '../assets/svgs/view-svg3.svg';
 
 
 const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle }) => {
@@ -49,11 +51,14 @@ const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, inner
                         innerContainerStyle
                     ]}
                 >
-                    <Icon
+                    {/* <Icon
                         name={icon}
                         size={24}
                         color={isFocused ? COLORS.white : COLORS.black}
-                    />
+                    /> */}
+                    {
+                        icon
+                    }
                     { isFocused && <Text
                             numberOfLines={1}
                             style={{ 
@@ -278,8 +283,8 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                     }}
                 >
                     <TabButton
-                        label={constants.screens.home}
-                        icon={'home'}
+                        label={'Cliptos'}
+                        icon={<CliptoIcon />}
                         isFocused={selectedTab == constants.screens.home}
                         outerContainerStyle={homeFlexStyle}
                         innerContainerStyle={homeColorStyle}
@@ -319,7 +324,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                     /> */}
                     <TabButton
                         label={'View'}
-                        icon={'youtube'}
+                        icon={<ViewIcon />}
                         outerContainerStyle={userFlexStyle}
                         innerContainerStyle={userColorStyle}
                         isFocused={selectedTab == 'ViewVideo'}

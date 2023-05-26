@@ -27,6 +27,8 @@ import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
 import {DrawerActions} from '@react-navigation/native';
+import ViewIconSvg from '../../assets/svgs/view-svg2.svg';
+import CliptosIconSvg from '../../assets/svgs/cliptos-svg1.svg';
 
 let selectedUser = null;
 let selectedPostToGo = null;
@@ -194,7 +196,7 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<Image source={images.view_logo_t} resizeMode={'contain'} style={{ height: 40, width: 100 }} />}
+                title={<CliptosIconSvg width={100} height={70} />}
                 titleStyle={{
                     color: COLORS.white,
                 }}
