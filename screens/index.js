@@ -43,7 +43,9 @@ import VideoPlayer from "./Video/VideoPlayer";
 import Polygon from './Polygon/Polygon';
 import AddAccountInit from "./AddAccount/AddInitAccount";
 import ViewVideo from "./ViewVideo/ViewVideo";
-import Channels from "./CulturalTV/Channels"
+import Channels from "./CulturalTV/Channels";
+import ChannelsInit from "./CulturalTV/ChannelsInit";
+import ViewLiveVideo from "./ViewVideo/ViewLiveVideo";
 
 export {
     Navigator,
@@ -87,7 +89,9 @@ export {
     ForgotPassword,
     MainLayout,
     Home,
-    Channels
+    Channels,
+    ChannelsInit,
+    ViewLiveVideo,
     // Search,
     // Notification,
     // FilterModal

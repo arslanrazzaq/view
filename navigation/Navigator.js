@@ -42,7 +42,9 @@ import {
     ProfileTab,
     Polygon,
     ViewVideo,
-    Channels
+    Channels,
+    ChannelsInit,
+    ViewLiveVideo
 } from '../screens';
 import { AuthContext } from "../Context/authContext";
 import { View, ActivityIndicator } from 'react-native';
@@ -90,6 +92,14 @@ const Navigator = () => {
                         <Stack.Screen 
                             name="Channels"
                             component={Channels}
+                        />
+                        <Stack.Screen 
+                            name="ChannelsInit"
+                            component={ChannelsInit}
+                        />
+                        <Stack.Screen 
+                            name="ViewLiveVideo"
+                            component={ViewLiveVideo}
                         />
                         <Stack.Screen 
                             name="ViewVideo"

@@ -119,7 +119,7 @@ const Channels = ({ navigation }) => {
                             }}
                         >
                             <TouchableWithoutFeedback
-                                onPress={() => navigation.push('ViewVideo', { data: item.name })}
+                                onPress={() => navigation.push('ChannelsInit', { data: item.name, image: item.image })}
                             >
                                 <View
                                     style={{
