@@ -391,7 +391,7 @@ const SignUp = ({ navigation }) => {
                 </Text> : null
                 }
                 <View style={{ marginTop: SIZES.padding }}>
-                    <TextIconButton 
+                    {/* <TextIconButton 
                         containerStyle={{
                             height: 50,
                             alignItems: 'center',
@@ -417,8 +417,8 @@ const SignUp = ({ navigation }) => {
                             color: COLORS.white
                         }}
                         onPress={() => facebookLogin()}
-                    />
-                    <TextIconButton 
+                    /> */}
+                    {/* <TextIconButton 
                         containerStyle={{
                             height: 50,
                             alignItems: 'center',
@@ -444,7 +444,7 @@ const SignUp = ({ navigation }) => {
                             marginLeft: SIZES.radius
                         }}
                         onPress={() => googlelogin()}
-                    />
+                    /> */}
                 </View>
             </View>
             <View style={{ height: 50 }} />

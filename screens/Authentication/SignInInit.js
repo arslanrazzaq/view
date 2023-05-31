@@ -298,7 +298,7 @@ const SignInInit = ({ navigation, route }) => {
                         }}
                         onPress={() => onAppleButtonPress()}
                     /> : null }
-                    <TextIconButton 
+                    {/* <TextIconButton 
                         containerStyle={{
                             height: 50,
                             alignItems: 'center',
@@ -325,8 +325,8 @@ const SignInInit = ({ navigation, route }) => {
                             marginLeft: SIZES.radius
                         }}
                         onPress={() => googlelogin()}
-                    />
-                    <TextIconButton 
+                    /> */}
+                    {/* <TextIconButton 
                         disabled={isEnabledSignIn() ? false : true }
                         containerStyle={{
                             height: 50,
@@ -354,7 +354,7 @@ const SignInInit = ({ navigation, route }) => {
                             color: COLORS.white
                         }}
                         onPress={() => facebookLogin()}
-                    />
+                    /> */}
                     
                 </View>
                 <TextButton 
