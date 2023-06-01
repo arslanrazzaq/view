@@ -13,6 +13,10 @@ const gracies = require("../assets/images/gracies.jpeg");
 const justIce = require("../assets/images/just_ice.jpeg");
 const justinMartin = require("../assets/images/justin_martin.jpeg");
 const the2nd = require("../assets/images/the_2nd.jpeg");
+const cliptos = require("../assets/images/cliptos.png");
+const view = require("../assets/images/view.png");
+const views = require("../assets/images/views.png");
+const viewl = require("../assets/images/viewl.png");
 
 export default {
     logo_02,
@@ -28,5 +32,9 @@ export default {
     gracies,
     justinMartin,
     justIce,
-    the2nd
+    the2nd,
+    cliptos,
+    view,
+    views,
+    viewl
 }

@@ -5,6 +5,7 @@ import {
     TouchableWithoutFeedback,
     SafeAreaView,
     ImageBackground,
+    Image
 } from 'react-native';
 import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
 import { Header, IconButton} from '../../components';
@@ -12,7 +13,6 @@ import { Header, IconButton} from '../../components';
 import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
-import ViewIconSvg from '../../assets/svgs/view-svg2.svg';
 
 
 const Channels = ({ navigation }) => {
@@ -36,9 +36,11 @@ const Channels = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<ViewIconSvg width={100} height={70} />}
+                title={<Image source={images.views} resizeMode='contain' style={{ width: 100, height: 70 }} />}
                 titleStyle={{
                     color: COLORS.white,
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}
                 containerStyle={{
                     height: 50,

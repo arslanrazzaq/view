@@ -2,23 +2,16 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
     View,
     Text,
-    Platform,
-    Dimensions,
     ActivityIndicator,
-    TouchableOpacity,
-    Alert,
     TouchableWithoutFeedback,
-    FlatList,
     SafeAreaView,
-    StatusBar,
     ImageBackground,
     Image
 } from 'react-native';
 import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
-import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
+import { Header, IconButton, TextIconButton } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import moment from 'moment';
 import { BASE_URL } from '../../config';
@@ -26,12 +19,7 @@ import { BASE_URL } from '../../config';
 import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
-import {DrawerActions} from '@react-navigation/native';
-import ViewIconSvg from '../../assets/svgs/view-svg2.svg';
-import CliptosIconSvg from '../../assets/svgs/cliptos-svg1.svg';
 
-let selectedUser = null;
-let selectedPostToGo = null;
 let filterApplied = {};
 let firstRun = true;
 
@@ -196,9 +184,11 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<CliptosIconSvg width={100} height={70} />}
+                title={<Image source={images.cliptos} resizeMode='contain' style={{ width: 100, height: 70 }} />}
                 titleStyle={{
                     color: COLORS.white,
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}
                 containerStyle={{
                     height: 50,

@@ -5,9 +5,10 @@ import {
     TouchableOpacity,
     TouchableWithoutFeedback,
     SafeAreaView,
+    Image,
     Modal
 } from 'react-native';
-import { COLORS, SIZES, FONTS, icons, constants } from '../constants';
+import { COLORS, SIZES, FONTS, icons, constants, images } from '../constants';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { connect } from 'react-redux';
 import { setSelectedTab } from '../stores/tab/tabActions';
@@ -20,8 +21,6 @@ import { Header, TextButton } from '../components';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../Context/authContext';
-import CliptoIcon from '../assets/svgs/cliptos-svg2.svg';
-import ViewIcon from '../assets/svgs/view-svg3.svg';
 
 
 const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle }) => {
@@ -285,7 +284,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                 >
                     <TabButton
                         label={'Cliptos'}
-                        icon={<CliptoIcon />}
+                        icon={<Image resizeMode='contain' source={images.cliptos} style={{ width: 60, height: 60 }} />}
                         isFocused={selectedTab == constants.screens.home}
                         outerContainerStyle={homeFlexStyle}
                         innerContainerStyle={homeColorStyle}
@@ -325,7 +324,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                     /> */}
                     <TabButton
                         label={'View'}
-                        icon={<ViewIcon />}
+                        icon={<Image resizeMode='contain' source={images.viewl} style={{ width: 40, height: 40 }} />}
                         outerContainerStyle={userFlexStyle}
                         innerContainerStyle={userColorStyle}
                         isFocused={selectedTab == 'ViewVideo'}
