@@ -273,7 +273,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                 >
                     <TabButton
                         label={'Cliptos'}
-                        icon={<Image resizeMode='contain' source={images.cliptos} style={{ width: 60, height: 60 }} />}
+                        icon={<Image resizeMode='contain' source={images.cliptosI} style={{ width: 60, height: 40 }} />}
                         isFocused={selectedTab == constants.screens.home}
                         outerContainerStyle={homeFlexStyle}
                         innerContainerStyle={homeColorStyle}

@@ -17,6 +17,7 @@ const cliptos = require("../assets/images/cliptos.png");
 const view = require("../assets/images/view.png");
 const views = require("../assets/images/views.png");
 const viewl = require("../assets/images/viewl.png");
+const cliptosI = require("../assets/images/cliptosI.png");
 
 export default {
     logo_02,
@@ -36,5 +37,6 @@ export default {
     cliptos,
     view,
     views,
-    viewl
+    viewl,
+    cliptosI
 }
