@@ -88,17 +88,15 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<Image source={images.cliptos} resizeMode='contain' style={{ width: 100, height: 70 }} />}
+                title={<Image source={images.cliptos} resizeMode='contain' style={{ width: 100, height: 45 }} />}
                 titleStyle={{
-                    color: COLORS.white,
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                    color: COLORS.white
                 }}
                 containerStyle={{
                     height: 50,
                     marginTop: 0,
                     alignItems: 'center',
-                    paddingHorizontal: SIZES.base,
+                    paddingHorizontal: SIZES.base
                 }}
                 leftComponent={
                     <IconButton
