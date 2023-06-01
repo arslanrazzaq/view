@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
     function renderHeader() {
         return (
             <Header
-                title={<Image source={images.cliptos} resizeMode='contain' style={{ width: 100, height: 45 }} />}
+                title={<Image source={images.cliptos} resizeMode='contain' style={{ width: 100, height: 50 }} />}
                 titleStyle={{
                     color: COLORS.white
                 }}
