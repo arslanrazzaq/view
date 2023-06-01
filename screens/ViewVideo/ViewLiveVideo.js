@@ -1,22 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Platform,
-    FlatList,
     useWindowDimensions,
-    Text,
     ImageBackground,
     ActivityIndicator,
-    SafeAreaView,
-    TouchableOpacity,
-    TouchableWithoutFeedback
 } from 'react-native';
 import Video from 'react-native-video';
-import { BASE_URL } from '../../config';
 import { images, icons, SIZES, COLORS, FONTS } from '../../constants';
 import { IconButton, Header } from '../../components';
-import axios from 'axios';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 const ViewLiveVideo = ({ navigation, route }) => {
 
@@ -61,9 +53,6 @@ const ViewLiveVideo = ({ navigation, route }) => {
                             tintColor: COLORS.gold,
                         }}
                         onPress={() => {
-                            // navigation.dispatch(DrawerActions.openDrawer())
-                            //  navigation.openDrawer()       
-                            //logout(navigation)
                             navigation.goBack();
                         }}
                     />

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   TouchableOpacity,
   Image,
   StyleSheet,
@@ -9,13 +8,10 @@ import {
 } from 'react-native';
 
 export default (Preview = ({
-  style,
   item,
   imageKey,
   onPress,
-  index,
   active,
-  local,
 }) => {
   return (
     <TouchableOpacity

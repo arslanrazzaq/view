@@ -2,11 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     SafeAreaView,
     Image,
-    ImageBackground,
-    TextInput
+    ImageBackground
 } from 'react-native';
 import { Header, IconButton, FormInput, TextButton } from '../../components';
 import { FONTS, SIZES, COLORS, icons, images } from '../../constants';

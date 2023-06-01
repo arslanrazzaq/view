@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {
     View,
     Text,
@@ -12,7 +12,7 @@ import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
 import { AuthContext } from '../../Context/authContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
-import { PostCard, TextButton, Header, IconButton, TextIconButton, FormPicker } from '../../components';
+import { Header, IconButton } from '../../components';
 import { useWeb3Modal } from '@web3modal/react-native';
 
 const CustomDrawerItem = ({ label, icon, iconLib, onPress }) => {
@@ -175,24 +175,6 @@ const ProfileTab = ({ navigation }) => {
                     marginTop: SIZES.padding
                 }}
             >
-                {/* <CustomDrawerItem
-                    label={'How it works?'}
-                    iconLib={'help-outline'} 
-                    onPress={() => { 
-                        navigation.push("Faq"); 
-                    }}
-                /> */}
-                {/* <CustomDrawerItem
-                    label={'My email'}
-                    iconLib={'alternate-email'}
-                    onPress={() => { 
-                        if (userInfo?.user?.id) { 
-                            navigation.push("Paypal"); 
-                        } else {
-                            navigation.push("SignInInit"); 
-                        } 
-                    }}
-                /> */}
                 <CustomDrawerItem
                     label={isConnected ? "View Account" : "Connect Wallet"}
                     iconLib={'account-balance-wallet'}

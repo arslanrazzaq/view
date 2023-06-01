@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
-    View,
     SafeAreaView,
     ActivityIndicator,
-    ImageBackground,
-    Text,
+    ImageBackground
 } from 'react-native';
 import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
 import { Header, IconButton, TextIconButton } from '../../components';

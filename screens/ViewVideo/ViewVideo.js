@@ -7,7 +7,6 @@ import {
     Text,
     ImageBackground,
     ActivityIndicator,
-    TouchableOpacity,
     TouchableWithoutFeedback
 } from 'react-native';
 import Video from 'react-native-video';
@@ -131,19 +130,9 @@ const ViewVideo = ({ navigation, route }) => {
                                 </View>
                             );
                         }}
-                        // onEndReachedThreshold={0.5}
-                        // onEndReached={info => {
-                        //     setPaused(list.map(() => true));
-                        // }}
                         renderItem={({ item, index }) => {
                             return (
-                                <TouchableWithoutFeedback
-                                    // onPress={() => {
-                                    //     let pauseList = paused;
-                                    //     pauseList[selectedIndex] = !pauseList[selectedIndex];
-                                    //     setPaused(pauseList.slice());
-                                    // }}
-                                >
+                                <TouchableWithoutFeedback>
                                     <View>
                                         {buffering[index] && (
                                             <ActivityIndicator

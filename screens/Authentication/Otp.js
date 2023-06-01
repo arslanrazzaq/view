@@ -7,7 +7,6 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import { AuthLayout } from '../';
 import { FONTS, SIZES, COLORS } from '../../constants';
 import { TextButton } from '../../components';
-import * as Keychain from 'react-native-keychain';
 
 const Otp = ({ navigation }) => {
 
@@ -26,16 +25,6 @@ const Otp = ({ navigation }) => {
 
         return () => clearInterval(interval)
     }, []);
-
-    // useEffect(() => { 
-    //     const unsubscribe = navigation.addListener('focus', async () => {
-    //         const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
-    //         if (credentials && credentials.username && credentials.password) {
-    //             navigation.goBack();
-    //         }
-    //     });
-    //     return unsubscribe;
-    // }, [navigation]);
 
     return (
         <AuthLayout

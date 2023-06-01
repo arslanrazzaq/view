@@ -1,27 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     SafeAreaView,
     Image,
     ImageBackground,
-    TextInput
 } from 'react-native';
-import { Header, IconButton, FormInput, TextButton } from '../../components';
+import { Header, IconButton, TextButton } from '../../components';
 import { FONTS, SIZES, COLORS, icons, images } from '../../constants';
-import axios from 'axios';
-import { BASE_URL } from '../../config';
-import { AuthContext } from '../../Context/authContext';
 
 
 const AddAccountInit = ({ navigation }) => {
-
-    const [accountName, setAccountName] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [commonError, setCommonError] = useState("");
-
-    const { userInfo } = useContext(AuthContext);
 
     const renderHeader = () => {
         return (

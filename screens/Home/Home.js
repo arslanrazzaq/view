@@ -15,7 +15,6 @@ import Icon1 from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import moment from 'moment';
 import { BASE_URL } from '../../config';
-// import FilterModal from './FilterModal';
 import FastImage from 'react-native-fast-image';
 import { FlashList } from '@shopify/flash-list';
 import { AuthContext } from '../../Context/authContext';
@@ -26,29 +25,18 @@ let firstRun = true;
 const Home = ({ navigation }) => {
 
     const [menuList, setMenuList] = React.useState([]);
-    const [showFilterModal, setShowFilterModal] = React.useState(false);
     const [sortFilter, setSortFilter] = React.useState('Today');
-    const [modalVisible, setModalVisible] = React.useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingExtra, setIsLoadingExtra] = useState(false);
     const [commonError, setCommonError] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(6);
     const [count, setCount] = useState(0);
-    const [loaded, setLoaded] = useState(false);
     
-    const [ageValues, setAgeValues] = useState([0, 100]);
-    const [nationality, setNationality] = useState('ALL');
-    const [isMale, setIsMale] = useState(true);
-    const [isFemale, setIsFemale] = useState(true);
     const [isFilterApplied, setIsFilterApplied] = useState(false);
-    const [postLayout, setPostLayout] = useState('post');
     const [firstVisit, setFirstVisit] = useState(false);
-    const [countdownTime, setCountdowntime] = useState(0);
-
-    const [isTime, setIsTime] = useState(true);
+    
     const flashListRef = useRef(null);
-    // const [isStatusBarHidden, setIsStatusBarHidden] = useState(false);
 
     const { userInfo, logout } = useContext(AuthContext);
 
@@ -93,90 +81,6 @@ const Home = ({ navigation }) => {
             } else {
                 firstRun = false;
                 setFirstVisit(false);
-            }
-        }
-    }
-
-    const getExtraPosts = async (page, current, filter, isFilterApply) => {
-        setIsLoadingExtra(true);
-        try {
-            let bodyObj = {};
-            if (filter === 'New' || filter === 'All Time') {
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: filter
-                }
-            } else if (filter === 'Week') {
-                let currentd = moment();
-                let next = moment(currentd).subtract(7, 'd');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: 'Past Week',
-                    next: next,
-                    current: currentd
-                }
-            } else if (filter === 'Month') {
-                let currentd = moment();
-                let next = moment(currentd).subtract(30, 'd');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: 'Past Month',
-                    next: next,
-                    current: currentd
-                }
-            } else if (filter === 'Today') {
-                let currentd = moment();
-                let next = moment(currentd).subtract(1, 'd');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: filter,
-                    next: next,
-                    current: currentd
-                }
-            } else if (filter === 'Yesterday') {
-                let currentd = moment().subtract(1, 'days');
-                let next = moment(currentd).subtract(1, 'days');
-                bodyObj = {
-                    page_size: pageSize,
-                    current_page: current,
-                    filter: filter,
-                    next: next,
-                    current: currentd
-                }
-            }
-            if (isFilterApply) {
-                bodyObj.nationality = filterApplied.nationality;
-                bodyObj.gender = filterApplied.gender;
-                let val1 = moment().subtract(filterApplied.ageValues[0], 'years').endOf('year');
-                let val2 = moment().subtract(filterApplied.ageValues[1], 'years').startOf('year');
-                bodyObj.age = [val1, val2];
-                bodyObj.isFilterApply = true;
-            } else {
-                bodyObj.isFilterApply = false;
-            }
-            const response = await axios.post(`${BASE_URL}/post/list`, bodyObj);
-            let combine = [...menuList, ...response.data.data];
-            let newRes = combine.filter((value, index, self) => index === self.findIndex((t) => (t.id === value.id)));
-            setMenuList(newRes);
-            if (response.data.data.length <= 0) {
-                setCount(menuList.length);
-            } else {
-                setCount(response.data.count);
-            }
-            setPageSize(page);
-            setCurrentPage(current);
-            setIsLoadingExtra(false);
-        } catch (error) {
-            if (error.response && error.response.status && (error.response.status === 404 || error.response.status === 400 || error.response.status === 401 || error.response.status === 500)) {
-                setCommonError(error.response.data.msg);
-                setIsLoadingExtra(false);
-            } else {
-                setCommonError('Unknown Error, Try again later');
-                setIsLoadingExtra(false);
             }
         }
     }
@@ -260,23 +164,6 @@ const Home = ({ navigation }) => {
             source={images.background} 
             style={{ flex : 1 }}
         >
-            {/* {   showFilterModal ? 
-                    <FilterModal 
-                        isVisible={showFilterModal} 
-                        ageValues={ageValues}
-                        ageValuesFinish={(values) => { setAgeValues(values); }}
-                        nationality={nationality}
-                        setNationality={setNationality}
-                        onApplyFilters={() => handleApplyFilter()}
-                        onClose={() => setShowFilterModal(false)}
-                        isMale={isMale}
-                        isFemale={isFemale}
-                        handleGender={handleGender}
-                    /> 
-                : 
-                null 
-            } */}
-           
             <SafeAreaView>
                 {renderHeader()}
             </SafeAreaView>
@@ -286,13 +173,7 @@ const Home = ({ navigation }) => {
                 data={menuList}
                 keyExtractor={x => `#${x.id}`}
                 showsVerticalScrollIndicator={false}
-                onEndReachedThreshold={0.2}
                 initialScrollIndex={0}
-                onEndReached={() => {
-                    if (count > 0 && count > menuList.length && !isLoading) {
-                        //getExtraPosts(pageSize, currentPage + 1, sortFilter, isFilterApplied);
-                    }
-                }}
                 disableAutoLayout={true}
                 estimatedItemSize={100}
                 ListHeaderComponent={

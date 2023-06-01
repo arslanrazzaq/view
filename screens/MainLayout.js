@@ -2,24 +2,18 @@ import React, { useContext, useState } from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
     TouchableWithoutFeedback,
-    SafeAreaView,
-    Image,
-    Modal
+    Image
 } from 'react-native';
-import { COLORS, SIZES, FONTS, icons, constants, images } from '../constants';
+import { COLORS, SIZES, FONTS, constants, images } from '../constants';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { connect } from 'react-redux';
 import { setSelectedTab } from '../stores/tab/tabActions';
 import {
     Home,
-    ViewVideo,
     Channels
 } from '../screens';
-import { Header, TextButton } from '../components';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../Context/authContext';
 
 
@@ -51,11 +45,6 @@ const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, inner
                         innerContainerStyle
                     ]}
                 >
-                    {/* <Icon
-                        name={icon}
-                        size={24}
-                        color={isFocused ? COLORS.white : COLORS.black}
-                    /> */}
                     {
                         icon
                     }
@@ -290,38 +279,6 @@ const MainLayout = ({ drawerAnimationStyle, navigation, route, selectedTab, setS
                         innerContainerStyle={homeColorStyle}
                         onPress={() => handleSelectTab(constants.screens.home)}
                     />
-                    {/* <TabButton
-                        label={'Search'}
-                        icon={'search1'}
-                        outerContainerStyle={notificationFlexStyle}
-                        innerContainerStyle={notificationColorStyle}
-                        isFocused={selectedTab == 'search'}
-                        onPress={() => {
-                            navigation.navigate("Search");
-                        }}
-                    /> */}
-                    {/* <TabButton
-                        label={constants.screens.search}
-                        icon={'plus'}
-                        outerContainerStyle={searchFlexStyle}
-                        innerContainerStyle={searchColorStyle}
-                        isFocused={selectedTab == constants.screens.search}
-                        onPress={() => {
-                            if (userInfo && userInfo.user && userInfo.user.id) {
-                                checkAbleToPost();
-                            } else {
-                                navigation.navigate("SignInInit");
-                            }
-                        }}
-                    /> */}
-                    {/* <TabButton
-                        label={constants.screens.cart}
-                        icon={'Trophy'}
-                        outerContainerStyle={cartFlexStyle}
-                        innerContainerStyle={cartColorStyle}
-                        isFocused={selectedTab == constants.screens.cart}
-                        onPress={() => handleSelectTab(constants.screens.cart)}
-                    /> */}
                     <TabButton
                         label={'View'}
                         icon={<Image resizeMode='contain' source={images.viewl} style={{ width: 40, height: 40 }} />}

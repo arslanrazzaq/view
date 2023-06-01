@@ -5,10 +5,9 @@ import {
     Dimensions,
     ImageBackground
 } from 'react-native';
-import { FONTS, COLORS, SIZES, icons, images } from '../../constants';
+import { COLORS, SIZES, icons, images } from '../../constants';
 import { Header, IconButton, SliderEntry } from '../../components';
 
-import { AuthContext } from '../../Context/authContext';
 import ImageView from "react-native-image-viewing";
 import Sound from 'react-native-sound';
 import Carousel from "react-native-reanimated-carousel";
@@ -29,11 +28,6 @@ const Asset = ({ navigation, route }) => {
     const [loadedAudio, setLoadedAudio] = useState(false);
 
     const [imagesToUse, setImagesToUse] = useState([]);
-
-
-    const flashListRef = useRef(null);
-
-    const { userInfo } = useContext(AuthContext);
 
     const _renderItemWithParallax = ({ item, index }) => {
         return (

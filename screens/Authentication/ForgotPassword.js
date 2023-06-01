@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -11,7 +11,6 @@ import { FormInput, TextButton } from '../../components';
 import axios from 'axios';
 import { utils } from '../../utils';
 import { BASE_URL } from '../../config';
-import * as Keychain from 'react-native-keychain';
 
 
 const ForgotPassword = ({ navigation }) => {
@@ -24,16 +23,6 @@ const ForgotPassword = ({ navigation }) => {
 
     const [FACode, setFACode] = useState("");
     const [FACodeError, setFACodeError] = useState("");
-
-    // useEffect(() => { 
-    //     const unsubscribe = navigation.addListener('focus', async () => {
-    //         const credentials = await Keychain.getGenericPassword({ service: 'view-s-token' });
-    //         if (credentials && credentials.username && credentials.password) {
-    //             navigation.goBack();
-    //         }
-    //     });
-    //     return unsubscribe;
-    // }, [navigation]);
 
     const isEnabledSignIn = () => {
         if (isFACode) {
